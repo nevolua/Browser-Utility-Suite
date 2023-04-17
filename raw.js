@@ -3888,25 +3888,4 @@ javascript:(function() {
 	  return button;
 	}
 	
-	document.addEventListener('keydown', function(event) {
-		if (event.shiftKey && event.code === 'ShiftRight') {
-			ui.style.display = ui.style.display === 'none' ? 'block' : 'none';
-			var alertUI = document.getElementById('alert-ui');
-			if (ui.style.display === 'none') {
-				if (!alertUI) {
-					alertUI = document.createElement('div');
-					alertUI.id = 'alert-ui';
-					alertUI.style.cssText = 'position: fixed; bottom: 10px; right: 10px; background-color: #333; color: #fff; padding: 10px; border-radius: 5px; font-size: 14px; z-index: 99999;';
-					alertUI.textContent = 'UI has been hidden, press right shift to show';
-					document.body.appendChild(alertUI);
-				} else {
-					alertUI.style.display = 'block';
-				}
-			} else {
-				if (alertUI) {
-					alertUI.style.display = 'none';
-				}
-			}
-		}
-	});
 })();
