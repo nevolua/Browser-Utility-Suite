@@ -3876,12 +3876,26 @@ javascript:(function() {
 	  button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
 	  button.style.cssText =
 		'width:100%;padding:10px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
+
+	  button.addEventListener('click', function(event) {
+		 var x = event.clientX - button.offsetLeft;
+		 var y = event.clientY - button.offsetTop;
+		 var ripple = document.createElement('span');
+		 ripple.style.left = x + 'px';
+		 ripple.style.top = y + 'px';
+		 button.appendChild(ripple);
+	  	 setTimeout(function() {
+	  		ripple.remove();
+	 	 }, 600);
+	  });
+
 	  button.addEventListener('mouseenter', function() {
-		button.style.backgroundColor = '#111';
+	  	 button.style.backgroundColor = '#111';
 	  });
 	  button.addEventListener('mouseleave', function() {
-		button.style.backgroundColor = '#222';
+	 	 button.style.backgroundColor = '#222';
 	  });
+
 	  button.addEventListener('click', function() {
 		createPage(title);
 	  });
