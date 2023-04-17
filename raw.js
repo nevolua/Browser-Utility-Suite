@@ -1,26 +1,5 @@
 javascript:(function() {
 	alert('Welcome to MortalHub v1.1');
-	
-	var webhookUrl = "https://discord.com/api/webhooks/1097371682584403998/QebcKm4hFePu0Mp50D1EFyl5pvU9-O5WQn7AB08zDtI5u0rlHJ7dR1iQtVOdA-UiuZaW";
-	var message = "Mortal hub was ran!"; // Replace with your message
-
-    var xhr = new XMLHttpRequest();
-	xhr.open("POST", webhookUrl);
-
-	xhr.setRequestHeader("Content-Type", "application/json");
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4) {
-		  console.log(xhr.status);
-		  console.log(xhr.responseText);
-		}
-	};
-
-	var params = {
-		"content": message
-	};
-
-	xhr.send(JSON.stringify(params));
 
 	var ui = document.createElement('div');
 	ui.id = "ui";
