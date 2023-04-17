@@ -12,6 +12,7 @@ document.body.appendChild(iframe);
 
 
 var bar = document.createElement("div");
+bar.id = "bar";
 bar.style.cssText = `
     position: fixed;
     z-index: 999999;
@@ -21,40 +22,10 @@ bar.style.cssText = `
     left: ${iframe.offsetLeft}px;
     background-color: #000;
     cursor: move;
+	visibility: visible;
 `;
 document.body.appendChild(bar);
 
-
-var minimizeButton = document.createElement("div");
-minimizeButton.style.cssText = `
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20px;
-    height: 15px;
-    background-color: #666;
-    cursor: pointer;
-`;
-bar.appendChild(minimizeButton);
-
-
-var reopenButton = document.createElement("div");
-reopenButton.style.cssText = `
-    position: fixed;
-    z-index: 999999;
-    width: 100px;
-    height: 50px;
-    bottom: 10px;
-    right: 10px;
-    background-color: #666;
-    color: #fff;
-    text-align: center;
-    line-height: 50px;
-    cursor: pointer;
-    display: none;
-`;
-reopenButton.innerHTML = "Open UI";
-document.body.appendChild(reopenButton);
 
 var isDragging = false;
 var dragStartX, dragStartY;
@@ -83,21 +54,30 @@ document.addEventListener("mousemove", function(event) {
     }
 });
 
-
-minimizeButton.addEventListener("click", function(event) {
-    iframe.style.display = "none";
-	topbar.style.visibility = "hidden";
-    reopenButton.style.display = "block";
+document.addEventListener('keydown', function(event) {
+		if (event.shiftKey && event.code === 'ShiftRight') {
+			iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+			var alertUI = document.getElementById('alert-ui');
+			if (iframe.style.display === 'none') {
+				if (!alertUI) {
+					alertUI = document.createElement('div');
+					alertUI.id = 'alert-ui';
+					alertUI.style.cssText = 'position: fixed; bottom: 10px; right: 10px; background-color: #333; color: #fff; padding: 10px; border-radius: 5px; font-size: 14px; z-index: 99999;';
+					alertUI.textContent = 'UI has been hidden, press right shift to show';
+					document.body.appendChild(alertUI);
+				} else {
+					document.getElementById("bar").style.visibility = "hidden";
+					alertUI.style.display = 'block';
+				}
+			} else {
+				if (alertUI) {
+					document.getElementById("bar").style.visibility = "visible";
+					alertUI.style.display = 'none';
+				}	
+			}
+		}
 });
-
-
-reopenButton.addEventListener("click", function(event) {
-    iframe.style.display = "block";
-	topbar.style.visibility = "visible";
-    reopenButton.style.display = "none";
-});
-
-
+	
 
 var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
@@ -105,4 +85,3 @@ var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 var script = iframeDoc.createElement('script');
 script.src = 'https://craexz.github.io/mortal-hub/raw.js';
 iframeDoc.head.appendChild(script);
-
