@@ -1,6 +1,4 @@
 javascript:(function() {
-	alert('Welcome to MortalHub v1.1');
-
 	var ui = document.createElement('div');
 	ui.id = "ui";
 	ui.style.cssText = 'width:600px;height:300px;background-color:rgba(33, 33, 33, 0.5);border-radius:10px;border:1px solid #666;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-family:Arial,sans-serif;z-index:99999;';
