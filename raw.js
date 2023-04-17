@@ -1,12 +1,8 @@
 javascript:(function() {
 	alert('Welcome to MortalHub v1.1');
 
-	var uicontainer = document.createElement('div');
-	uicontainer.id = "ui";
-	
-	const ui = uiContainer.attachShadow({ mode: 'open' });
-
-	
+	var ui = document.createElement('div');
+	ui.id = "ui";
 	ui.style.cssText = 'width:600px;height:300px;background-color:rgba(33, 33, 33, 0.5);border-radius:10px;border:1px solid #666;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-family:Arial,sans-serif;z-index:99999;';
 	var tabs = document.createElement('div');
 	tabs.style.cssText = 'width:150px;height:300px;background-color:rgba(22, 22, 22, 0.5);border-radius:10px;position:absolute;top:50%;left:0;transform:translateY(-50%);';
