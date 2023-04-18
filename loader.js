@@ -1,8 +1,16 @@
+		var dummyAnchor = document.createElement('a');
+		dummyAnchor.href = window.location.href;
+		
+		var baseurl = dummyAnchor.protocol + '//' + dummyAnchor.hostname;
+		
+		alert(baseurl);
+		
 		var iframe = document.createElement("iframe");
-		iframe.src = window.location.origin;
+		iframe.src = baseurl;
+		
 		iframe.style.cssText = `
 			position: fixed;
-			z-index: 999999;
+			z-index: 99999;
 			border: none;
 			width: 600px;
 			height: 300px;
@@ -40,7 +48,7 @@
 
 		document.addEventListener("mouseup", function(event) {
 			isDragging = false;
-		});
+		}); 
 
 		document.addEventListener("mousemove", function(event) {
 			if (isDragging) {
@@ -301,25 +309,23 @@
 		
 		iframe.onload = function() {
 		  var iframeDoc = iframe.contentWindow.document;
-
-		  // Remove all child nodes of the iframe's document element
+			
 		  while (iframeDoc.documentElement.firstChild) {
 			iframeDoc.documentElement.removeChild(iframeDoc.documentElement.firstChild);
 		  }
-
-		  // Recreate the head element with an empty style element
+		  
 		  var head = iframeDoc.createElement('head');
 		  var style = iframeDoc.createElement('style');
 		  style.textContent = '';
 		  head.appendChild(style);
 		  iframeDoc.documentElement.appendChild(head);
 
-		  // Recreate the body element
 		  var body = iframeDoc.createElement('body');
 		  iframeDoc.documentElement.appendChild(body);
 
-		  // Add your script element to the iframe's body
 		  var script = iframeDoc.createElement('script');
 		  script.innerHTML = `(${source})();`;
-		  body.appendChild(script);
+		  iframeDoc.head.appendChild(script);
+		  
+		  
 		};
