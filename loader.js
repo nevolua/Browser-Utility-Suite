@@ -60,10 +60,10 @@
 			if (isDragging) {
 				var deltaX = event.clientX - dragStartX;
 				var deltaY = event.clientY - dragStartY;
-				iframe.style.left = (iframe.offsetLeft + deltaX) + "px";
-				iframe.style.top = (iframe.offsetTop + deltaY) + "px";
-				bar.style.left = iframe.offsetLeft + "px";
-				bar.style.top = iframe.offsetTop + "px";
+				shadowFrame.style.left = (shadowFrame.offsetLeft + deltaX) + "px";
+				shadowFrame.style.top = (shadowFrame.offsetTop + deltaY) + "px";
+				bar.style.left = shadowFrame.offsetLeft + "px";
+				bar.style.top = shadowFrame.offsetTop + "px";
 				dragStartX = event.clientX;
 				dragStartY = event.clientY;
 			}
@@ -71,9 +71,9 @@
 
 		document.addEventListener('keydown', function(event) {
 				if (event.shiftKey && event.code === 'ShiftRight') {
-					iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+					shadowFrame.style.display = shadowFrame.style.display === 'none' ? 'block' : 'none';
 					var alertUI = document.getElementById('alert-ui');
-					if (iframe.style.display === 'none') {
+					if (shadowFrame.style.display === 'none') {
 						if (!alertUI) {
 							alertUI = document.createElement('div');
 							alertUI.id = 'alert-ui';
@@ -92,9 +92,6 @@
 					}
 				}
 		});
-
-
-		var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
 		var source = function() {
 			var ui = document.createElement('div');
@@ -314,11 +311,11 @@
 		};
 
 
-	    var script = iframeDoc.createElement('script');
+	    var script = document.createElement('script');
 		script.innerHTML = `(${source})();`;
 		shadowFrame.appendChild(script);
 		  
 		  
 		
 		
-		
+	
