@@ -8,7 +8,7 @@
 				z-index: 9999;
 				width: 600px;
 				height: 300px;
-				background-color: white;
+				background-color: rgba(0,0,0,1);
 			}
 		`;
 
@@ -17,7 +17,7 @@
 		shadowRoot.adoptedStyleSheets = [styleSheet];
 
 		shadowRoot.innerHTML = `
-			<div id="shadowFrame" style="position: fixed;z-index: 99999;border: none;width: 600px;height: 300px;top: 100px;left: 100px;">
+			<div id="shadowFrame" style="background-color: rgba(0,0,0,1);position: fixed;z-index: 99999;border: none;width: 600px;height: 300px;top: 100px;left: 100px;">
 				<!-- Your UI elements go here -->
 			</div>
 		`;
