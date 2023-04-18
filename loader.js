@@ -1,4 +1,20 @@
 		const shadowRoot = document.body.attachShadow({ mode: 'open' });
+		const styles = `
+			#my-shadow-root {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 9999;
+				width: 600px;
+				height: 300px;
+				background-color: white;
+			}
+		`;
+
+		const styleSheet = new CSSStyleSheet();
+		styleSheet.replaceSync(styles);
+		shadowRoot.adoptedStyleSheets = [styleSheet];
 
 		const shadowFrame = document.createElement('div');
 
