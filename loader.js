@@ -1,5 +1,5 @@
 		var iframe = document.createElement("iframe");
-		iframe.src = window.location.href;
+		iframe.srcdoc = window.location.href;
 		
 		iframe.style.cssText = `
 			position: fixed;
