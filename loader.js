@@ -315,11 +315,6 @@
 		};
 
 
-	    var script = document.createElement('script');
+	    	var script = document.createElement('script');
 		script.innerHTML = `(${source})();`;
 		shadowFrame.appendChild(script);
-		  
-		  
-		
-		
-		
