@@ -1,13 +1,4 @@
 		const shadowRoot = document.body.attachShadow({ mode: 'open' });
-		shadowRoot.style.cssText = `
-			position: fixed;
-			z-index: 99999;
-			border: none;
-			width: 600px;
-			height: 300px;
-			top: 100px;
-			left: 100px;
-		`;
 
 		const shadowFrame = document.createElement('div');
 
