@@ -1,7 +1,7 @@
-		var iframe = document.createElement("iframe");
-		iframe.srcdoc = window.location.href;
+		const shadowRoot = document.body.attachShadow({ mode: 'open' });
+		const shadowFrame = document.createElement('div');
 		
-		iframe.style.cssText = `
+		shadowFrame.cssText = `
 			position: fixed;
 			z-index: 99999;
 			border: none;
@@ -10,7 +10,9 @@
 			top: 100px;
 			left: 100px;
 		`;
-		document.body.appendChild(iframe);
+		
+		shadowRoot.appendChild(shadowFrame);
+		document.body.appendChild(shadowRoot);
 
 
 		var bar = document.createElement("div");
@@ -20,8 +22,8 @@
 			z-index: 999999;
 			height: 15px;
 			width: 600px;
-			top: ${iframe.offsetTop}px;
-			left: ${iframe.offsetLeft}px;
+			top: ${shadowFrame.offsetTop}px;
+			left: ${shadowFrame.offsetLeft}px;
 			background-color: #000;
 			cursor: move;
 			visibility: visible;
@@ -119,7 +121,7 @@
 			ui.appendChild(tabs);
 			ui.appendChild(content);
 
-			document.body.appendChild(ui);
+			shadowFrame.appendChild(ui);
 			var initialX, initialY;
 
 			function Blooket(){
@@ -299,26 +301,11 @@
 			}
 
 		};
-		
-		iframe.onload = function() {
-		  var iframeDoc = iframe.contentWindow.document;
-			
-		  while (iframeDoc.documentElement.firstChild) {
-			iframeDoc.documentElement.removeChild(iframeDoc.documentElement.firstChild);
-		  }
-		  
-		  var head = iframeDoc.createElement('head');
-		  var style = iframeDoc.createElement('style');
-		  style.textContent = '';
-		  head.appendChild(style);
-		  iframeDoc.documentElement.appendChild(head);
 
-		  var body = iframeDoc.createElement('body');
-		  iframeDoc.documentElement.appendChild(body);
 
-		  var script = iframeDoc.createElement('script');
-		  script.innerHTML = `(${source})();`;
-		  iframeDoc.head.appendChild(script);
+	    var script = iframeDoc.createElement('script');
+		script.innerHTML = `(${source})();`;
+		shadowFrame.appendChild(script);
 		  
 		  
 		};
