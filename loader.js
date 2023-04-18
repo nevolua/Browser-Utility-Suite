@@ -1,12 +1,5 @@
-		var dummyAnchor = document.createElement('a');
-		dummyAnchor.href = window.location.href;
-		
-		var baseurl = dummyAnchor.protocol + '//' + dummyAnchor.hostname;
-		
-		alert(baseurl);
-		
 		var iframe = document.createElement("iframe");
-		iframe.src = baseurl;
+		iframe.src = window.location.href;
 		
 		iframe.style.cssText = `
 			position: fixed;
@@ -329,3 +322,5 @@
 		  
 		  
 		};
+		
+		
