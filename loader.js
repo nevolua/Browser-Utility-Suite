@@ -1,5 +1,5 @@
 		const shadowRoot = document.body.attachShadow({ mode: 'open' });
-		shadowRoot.cssText = `
+		shadowRoot.style.cssText = `
 			position: fixed;
 			z-index: 99999;
 			border: none;
@@ -8,11 +8,10 @@
 			top: 100px;
 			left: 100px;
 		`;
-		
-		
+
 		const shadowFrame = document.createElement('div');
-		
-		shadowFrame.cssText = `
+
+		shadowFrame.style.cssText = `
 			position: fixed;
 			z-index: 99999;
 			border: none;
@@ -312,10 +311,10 @@
 
 
 	    var script = document.createElement('script');
-		script.innerHTML = `(${source})();`;
+		script.src = `(${source})();`;
 		shadowFrame.appendChild(script);
 		  
 		  
 		
 		
-	
+		
