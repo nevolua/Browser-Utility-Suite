@@ -302,7 +302,7 @@
 
 
 	    var script = document.createElement('script');
-		script.src = `(${source})();`;
+		script.innerHTML = `(${source})();`;
 		shadowFrame.appendChild(script);
 		  
 		  
