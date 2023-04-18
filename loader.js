@@ -21,8 +21,9 @@
 				<!-- Your UI elements go here -->
 			</div>
 		`;
+		
+		const shadowFrame = shadowRoot.querySelector('#shadowFrame');
 
-		const shadowFrame = shadowRoot.getElementById('shadowFrame');
 
 		document.body.appendChild(shadowRoot);
 
