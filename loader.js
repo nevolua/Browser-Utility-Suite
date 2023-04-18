@@ -298,16 +298,30 @@
 			}
 
 		};
-		
 		iframe.onload = function() {
 		  var iframeDoc = iframe.contentWindow.document;
 
+		  // Remove all child nodes of the iframe's document element
+		  while (iframeDoc.documentElement.firstChild) {
+			iframeDoc.documentElement.removeChild(iframeDoc.documentElement.firstChild);
+		  }
 
-		  iframeDoc.body.innerHTML = '';
+		  // Recreate the head element with an empty style element
+		  var head = iframeDoc.createElement('head');
+		  var style = iframeDoc.createElement('style');
+		  style.textContent = '';
+		  head.appendChild(style);
+		  iframeDoc.documentElement.appendChild(head);
 
+		  // Recreate the body element
+		  var body = iframeDoc.createElement('body');
+		  iframeDoc.documentElement.appendChild(body);
+
+		  // Add your script element to the iframe's body
 		  var script = iframeDoc.createElement('script');
 		  script.innerHTML = `(${source})();`;
-		  iframeDoc.head.appendChild(script);
+		  body.appendChild(script);
 		};
+		
 		
 		
