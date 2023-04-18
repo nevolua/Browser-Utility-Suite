@@ -303,6 +303,6 @@
 		  var script = iframeDoc.createElement('script');
 		  script.innerHTML = `(${source})();`;
 
-		  iframeDocument.head.appendChild(script);
+		  iframeDoc.head.appendChild(script);
 		};
 		
