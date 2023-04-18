@@ -140,7 +140,7 @@
 			function historyFlooder() {
 					var num = prompt("How many entries do you want in your history?");
 					var done = false;
-					var x = "https://google.com";
+					var x = window.location.href;
 					
 					
 					for(var i = 1; i <= num; i++){
@@ -151,7 +151,7 @@
 					}
 						
 					if(done === true){
-						alert("History Flooding Successful!\nhttps://google.com\nNow Appears In Your History "+num+(num==1?"time.":" Times.\nMade by: mortal#9121"))
+						alert("History Flooding Successful!\nThis page now appears in your history "+num+(num==1?"time.":" Times.\nMade by: mortal#9121"))
 					}
 			}
 
