@@ -298,6 +298,7 @@
 			}
 
 		};
+		
 		iframe.onload = function() {
 		  var iframeDoc = iframe.contentWindow.document;
 
@@ -322,6 +323,3 @@
 		  script.innerHTML = `(${source})();`;
 		  body.appendChild(script);
 		};
-		
-		
-		
