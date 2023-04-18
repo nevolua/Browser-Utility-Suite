@@ -300,9 +300,14 @@
 		};
 		
 		iframe.onload = function() {
+		  var iframeDoc = iframe.contentWindow.document;
+
+
+		  iframeDoc.body.innerHTML = '';
+
 		  var script = iframeDoc.createElement('script');
 		  script.innerHTML = `(${source})();`;
-
 		  iframeDoc.head.appendChild(script);
 		};
+		
 		
