@@ -26,6 +26,7 @@
 
 
 		document.body.appendChild(shadowRoot);
+		console.log(shadowFrame);
 
 
 
