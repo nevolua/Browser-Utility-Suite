@@ -1,4 +1,5 @@
 		var iframe = document.createElement("iframe");
+		iframe.src = window.location.origin;
 		iframe.style.cssText = `
 			position: fixed;
 			z-index: 999999;
@@ -297,7 +298,11 @@
 			}
 
 		};
+		
+		iframe.onload = function() {
+		  var script = iframeDoc.createElement('script');
+		  script.innerHTML = `(${source})();`;
 
-		var script = iframeDoc.createElement('script');
-		script.innerHTML = `(${source})();`;
-		iframeDoc.head.appendChild(script);
+		  iframeDocument.head.appendChild(script);
+		};
+		
