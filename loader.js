@@ -15,17 +15,17 @@
 		const styleSheet = new CSSStyleSheet();
 		styleSheet.replaceSync(styles);
 		shadowRoot.adoptedStyleSheets = [styleSheet];
-		
+
 		shadowRoot.innerHTML = `
-			<div id="shadowFrame" style = "position: fixed;z-index: 99999;border: none;width: 600px;height: 300px;top: 100px;left: 100px;">
+			<div id="shadowFrame" style="position: fixed;z-index: 99999;border: none;width: 600px;height: 300px;top: 100px;left: 100px;">
 				<!-- Your UI elements go here -->
 			</div>
 		`;
 
-		const shadowFrame = document.getElementById('shadowFrame')
+		const shadowFrame = shadowRoot.getElementById('shadowFrame');
 
-		
 		document.body.appendChild(shadowRoot);
+
 
 
 		var bar = document.createElement("div");
