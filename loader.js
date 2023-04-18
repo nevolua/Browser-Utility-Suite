@@ -143,7 +143,7 @@
 					
 					
 					for(var i = 1; i <= num; i++){
-						history.pushState(0, 0, i == num ? x:i.toString());
+						window.history.pushState(0, 0, i == num ? x:i);
 						if(i == num){
 							done = true
 						}
