@@ -1,18 +1,3 @@
-	   var style = document.createElement('style');
-	   style.type = 'text/css';
-	   var styleName = Math.random().toString(36).substring(7);
-	   var css = '#' + styleName + '{width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; border: 1px solid rgb(102, 102, 102); position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999;}';
-	   style.appendChild(document.createTextNode(css));
-
-	   document.head.appendChild(style);
-	  
-	   const shadowFrame = document.createElement('div');
-	   shadowFrame.id = styleName;
-
-
-	   document.body.appendChild(shadowFrame);
-
-
 		document.addEventListener('keydown', function(event) {
 				if (event.shiftKey && event.code === 'ShiftRight') {
 					shadowFrame.style.display = shadowFrame.style.display === 'none' ? 'block' : 'none';
@@ -40,7 +25,7 @@
 		var source = function() {
 			var ui = document.createElement('div');
 			ui.id = "ui";
-			ui.style.cssText = 'width:600px;height:300px;background-color:rgba(33, 33, 33, 0.5);border-radius:10px;border:1px solid #666;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-family:Arial,sans-serif;z-index:99999;';
+			ui.style.cssText = 'width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; border: 1px solid rgb(102, 102, 102); position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999;';
 			var tabs = document.createElement('div');
 			tabs.style.cssText = 'width:150px;height:300px;background-color:rgba(22, 22, 22, 0.5);border-radius:10px;position:absolute;top:50%;left:0;transform:translateY(-50%);';
 
@@ -73,7 +58,7 @@
 			ui.appendChild(tabs);
 			ui.appendChild(content);
 
-			shadowFrame.appendChild(ui);
+			document.body.appendChild(ui);
 			var initialX, initialY;
 
 			function Blooket(){
@@ -255,6 +240,4 @@
 		};
 
 
-	    var script = document.createElement('script');
-		script.innerHTML = `(${source})();`;
-		shadowFrame.appendChild(script);
+	    source();
