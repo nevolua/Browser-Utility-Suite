@@ -1,4 +1,3 @@
-function() {
 	   var style = document.createElement('style');
 	   style.type = 'text/css';
 	   var styleName = Math.random().toString(36).substring(7);
@@ -302,8 +301,3 @@ function() {
 	    var script = document.createElement('script');
 		script.innerHTML = `(${source})();`;
 		shadowFrame.appendChild(script);
-		  
-		  
-		
-		
-}();
