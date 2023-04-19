@@ -2,7 +2,7 @@
 	   style.type = 'text/css';
 	   var styleName = Math.random().toString(36).substring(7);
 	   
-	   var css = '#' + styleName + ':not(:root *) {background-color: black; width: 600px; height: 300px;}';
+	   var css = '#' + styleName + '{background-color: black; width: 600px; height: 300px;}';
 	   style.appendChild(document.createTextNode(css));
 
 	   document.head.appendChild(style);
