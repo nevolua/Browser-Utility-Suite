@@ -1,3 +1,14 @@
+		  var shadowHost = document.createElement('div');
+  
+		  // Attach the Shadow DOM to the host element
+		  var shadowRoot = shadowHost.attachShadow({mode: 'open'});
+
+		  // Create the UI elements inside the Shadow DOM
+		  var container = document.createElement('div');
+		  shadowRoot.appendChild(container);
+
+		  document.body.appendChild(shadowHost);
+
 		document.addEventListener('keydown', function(event) {
 				if (event.shiftKey && event.code === 'ShiftRight') {
 					document.getElementById('ui').style.display = document.getElementById('ui').style.display === 'none' ? 'block' : 'none';
@@ -58,7 +69,7 @@
 			ui.appendChild(tabs);
 			ui.appendChild(content);
 
-			document.body.appendChild(ui);
+			container.appendChild(ui);
 			var initialX, initialY;
 
 			function Blooket(){
