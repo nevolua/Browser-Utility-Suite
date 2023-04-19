@@ -1,33 +1,22 @@
-		const shadowRoot = document.body.attachShadow({ mode: 'open' });
-		const styles = `
-			#my-shadow-root {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				z-index: 9999;
-				width: 600px;
-				height: 300px;
-				background-color: rgba(0,0,0,0);
-			}
-		`;
-
-		const styleSheet = new CSSStyleSheet();
-		styleSheet.replaceSync(styles);
-		shadowRoot.adoptedStyleSheets = [styleSheet];
-
-		shadowRoot.innerHTML = `
-			<div id="shadowFrame" style="background-color: rgba(0,0,0,0);position: fixed;z-index: 99999;border: none;width: 600px;height: 300px;top: 100px;left: 100px;">
-				<!-- Your UI elements go here -->
-			</div>
-		`;
-		
-		const shadowFrame = shadowRoot.querySelector('#shadowFrame');
-
-
-		document.body.appendChild(shadowRoot);
-		console.log(shadowFrame);
-
+	  const shadowRoot = document.createElement('div').attachShadow({ mode: 'open' });
+	  shadowRoot.style.position = 'fixed';
+	  shadowRoot.style.top = '0';
+	  shadowRoot.style.left = '0';
+	  shadowRoot.style.width = '100%';
+	  shadowRoot.style.height = '100%';
+	  shadowRoot.style.backgroundColor = 'rgba(0,0,0,0.5)';
+	  const shadowFrame = document.createElement('div');
+	  shadowFrame.id = 'shadowframe';
+	  shadowFrame.style.width = '600px';
+	  shadowFrame.style.height = '300px';
+	  shadowFrame.style.margin = 'auto';
+	  shadowFrame.style.top = '0';
+	  shadowFrame.style.bottom = '0';
+	  shadowFrame.style.left = '0';
+	  shadowFrame.style.right = '0';
+	  shadowFrame.style.position = 'absolute';
+	  shadowRoot.appendChild(shadowFrame);
+	  document.body.appendChild(shadowRoot);
 
 
 		var bar = document.createElement("div");
@@ -315,6 +304,11 @@
 		};
 
 
-	    	var script = document.createElement('script');
+	    var script = document.createElement('script');
 		script.innerHTML = `(${source})();`;
 		shadowFrame.appendChild(script);
+		  
+		  
+		
+		
+		
