@@ -1,16 +1,17 @@
-	  var style = document.createElement('style');
-	  style.type = 'text/css';
-	  var styleName = Math.random().toString(36).substring(7)
+function() {
+	   var style = document.createElement('style');
+	   style.type = 'text/css';
+	   var styleName = Math.random().toString(36).substring(7)
 	  
-	  var css = '#' + styleName + ' {background-color: black; width: 600px; height: 300px; !important;}';
-	  style.appendChild(document.createTextNode(css));
-	  document.head.appendChild(style);
+	   var css = '#' + styleName + ' {background-color: black; width: 600px; height: 300px; !important;}';
+	   style.appendChild(document.createTextNode(css));
+	   document.head.appendChild(style);
 	  
-	  const shadowFrame = document.createElement('div');
-	  shadowFrame.id = styleName;
+	   const shadowFrame = document.createElement('div');
+	   shadowFrame.id = styleName;
 
 
-	  document.body.appendChild(shadowFrame);
+	   document.body.appendChild(shadowFrame);
 
 
 		var bar = document.createElement("div");
@@ -305,4 +306,4 @@
 		  
 		
 		
-		
+}();
