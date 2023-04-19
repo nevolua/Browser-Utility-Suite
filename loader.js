@@ -1,7 +1,7 @@
 function() {
 	   var style = document.createElement('style');
 	   style.type = 'text/css';
-	   var styleName = Math.random().toString(36).substring(7)
+	   var styleName = Math.random().toString(36).substring(7);
 	  
 	   var css = '#' + styleName + ' {background-color: black; width: 600px; height: 300px; !important;}';
 	   style.appendChild(document.createTextNode(css));
