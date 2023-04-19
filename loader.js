@@ -1,22 +1,16 @@
-	  const shadowRoot = document.createElement('div').attachShadow({ mode: 'open' });
-	  shadowRoot.style.position = 'fixed';
-	  shadowRoot.style.top = '0';
-	  shadowRoot.style.left = '0';
-	  shadowRoot.style.width = '100%';
-	  shadowRoot.style.height = '100%';
-	  shadowRoot.style.backgroundColor = 'rgba(0,0,0,0.5)';
+	  var style = document.createElement('style');
+	  style.type = 'text/css';
+	  var styleName = Math.random().toString(36).substring(7)
+	  
+	  var css = '#' + styleName + ' {background-color: black; width: 600px; height: 300px; !important;}';
+	  style.appendChild(document.createTextNode(css));
+	  document.head.appendChild(style);
+	  
 	  const shadowFrame = document.createElement('div');
-	  shadowFrame.id = 'shadowframe';
-	  shadowFrame.style.width = '600px';
-	  shadowFrame.style.height = '300px';
-	  shadowFrame.style.margin = 'auto';
-	  shadowFrame.style.top = '0';
-	  shadowFrame.style.bottom = '0';
-	  shadowFrame.style.left = '0';
-	  shadowFrame.style.right = '0';
-	  shadowFrame.style.position = 'absolute';
-	  shadowRoot.appendChild(shadowFrame);
-	  document.body.appendChild(shadowRoot);
+	  shadowFrame.id = styleName;
+
+
+	  document.body.appendChild(shadowFrame);
 
 
 		var bar = document.createElement("div");
