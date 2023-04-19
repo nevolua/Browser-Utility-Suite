@@ -13,51 +13,6 @@
 	   document.body.appendChild(shadowFrame);
 
 
-		var bar = document.createElement("div");
-		bar.id = "bar";
-		bar.style.cssText = `
-			width: 600px; 
-			height: 300px; 
-			background-color: rgba(33, 33, 33, 0.5); 
-			border-radius: 10px; 
-			border: 1px solid rgb(102, 102, 102); 
-			position: fixed; 
-			top: 271px; 
-			left: 430px; 
-			transform: translate(-50%, -50%); 
-			font-family: Arial, sans-serif; 
-			z-index: 99999;
-		`;
-		document.body.appendChild(bar);
-
-
-		var isDragging = false;
-		var dragStartX, dragStartY;
-
-		bar.addEventListener("mousedown", function(event) {
-			isDragging = true;
-			dragStartX = event.clientX;
-			dragStartY = event.clientY;
-		});
-
-
-		document.addEventListener("mouseup", function(event) {
-			isDragging = false;
-		}); 
-
-		document.addEventListener("mousemove", function(event) {
-			if (isDragging) {
-				var deltaX = event.clientX - dragStartX;
-				var deltaY = event.clientY - dragStartY;
-				shadowFrame.style.left = (shadowFrame.offsetLeft + deltaX) + "px";
-				shadowFrame.style.top = (shadowFrame.offsetTop + deltaY) + "px";
-				bar.style.left = shadowFrame.offsetLeft + "px";
-				bar.style.top = shadowFrame.offsetTop + "px";
-				dragStartX = event.clientX;
-				dragStartY = event.clientY;
-			}
-		});
-
 		document.addEventListener('keydown', function(event) {
 				if (event.shiftKey && event.code === 'ShiftRight') {
 					shadowFrame.style.display = shadowFrame.style.display === 'none' ? 'block' : 'none';
