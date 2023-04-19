@@ -1,8 +1,7 @@
 	   var style = document.createElement('style');
 	   style.type = 'text/css';
 	   var styleName = Math.random().toString(36).substring(7);
-	   
-	   var css = '#' + styleName + '{background-color: black; width: 600px; height: 300px;}';
+	   var css = '#' + styleName + '{width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; border: 1px solid rgb(102, 102, 102); position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999;}';
 	   style.appendChild(document.createTextNode(css));
 
 	   document.head.appendChild(style);
@@ -17,15 +16,17 @@
 		var bar = document.createElement("div");
 		bar.id = "bar";
 		bar.style.cssText = `
-			position: fixed;
-			z-index: 999999;
-			height: 15px;
-			width: 600px;
-			top: ${shadowFrame.offsetTop}px;
-			left: ${shadowFrame.offsetLeft}px;
-			background-color: #000;
-			cursor: move;
-			visibility: visible;
+			width: 600px; 
+			height: 300px; 
+			background-color: rgba(33, 33, 33, 0.5); 
+			border-radius: 10px; 
+			border: 1px solid rgb(102, 102, 102); 
+			position: fixed; 
+			top: 271px; 
+			left: 430px; 
+			transform: translate(-50%, -50%); 
+			font-family: Arial, sans-serif; 
+			z-index: 99999;
 		`;
 		document.body.appendChild(bar);
 
