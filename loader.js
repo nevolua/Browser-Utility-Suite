@@ -1,8 +1,8 @@
 		document.addEventListener('keydown', function(event) {
 				if (event.shiftKey && event.code === 'ShiftRight') {
-					shadowFrame.style.display = shadowFrame.style.display === 'none' ? 'block' : 'none';
+					document.getElementById('ui').style.display = document.getElementById('ui').style.display === 'none' ? 'block' : 'none';
 					var alertUI = document.getElementById('alert-ui');
-					if (shadowFrame.style.display === 'none') {
+					if (document.getElementById('ui').style.display === 'none') {
 						if (!alertUI) {
 							alertUI = document.createElement('div');
 							alertUI.id = 'alert-ui';
@@ -10,12 +10,12 @@
 							alertUI.textContent = 'UI has been hidden, press right shift to show';
 							document.body.appendChild(alertUI);
 						} else {
-							document.getElementById("bar").style.visibility = "hidden";
+							document.getElementById("ui").style.visibility = "hidden";
 							alertUI.style.display = 'block';
 						}
 					} else {
 						if (alertUI) {
-							document.getElementById("bar").style.visibility = "visible";
+							document.getElementById("ui").style.visibility = "visible";
 							alertUI.style.display = 'none';
 						}	
 					}
