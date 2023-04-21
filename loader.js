@@ -78,12 +78,7 @@
 			}
 
 			function createButton(title, function_) {
-				  var content = document.getElementById("content");
-				  var button = document.createElement('button');
-				  button.textContent = title;
-				  button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-				  button.style.cssText =	
-					'display:block;margin:10px auto;width:100%;padding:10px 20px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
+				  var content = document.getElementById("content");var button = document.createElement('button');button.textContent = title;button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';button.style.cssText = 'display:block;margin:10px auto;width:100%;padding:10px 20px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
 				  button.addEventListener('mouseenter', function() {
 					button.style.backgroundColor = '#111';
 				  });
@@ -94,7 +89,6 @@
 				  button.addEventListener('click', function() {
 					function_();
 				  });
-
 				  content.appendChild(button);
 			}
 
@@ -109,8 +103,7 @@
 				  content.appendChild(text);
 			}
 			function release(event) {
-				document.removeEventListener('mousemove', move);
-				document.removeEventListener('mouseup', release);
+				document.removeEventListener('mousemove', move);document.removeEventListener('mouseup', release);
 			}
 
 			function createPage(title) {
@@ -137,44 +130,47 @@
 				  });
 				  
 				  var button = createButton("History Flooder", function() {
-				  	var num = prompt("How many entries do you want in your history?");
-					var done = false;
-						
+				  	var num = prompt("How many entries do you want in your history?");var done = false;
 					for(var i = 1; i <= num; i++){
 						window.history.pushState(0, 0, i == num ? window.location.href:i);
 						if(i == num){
 							done = true
 						}
 					}
-						
 					if(done === true){
 						alert("History Flooding Successful!\nThis page now appears in your history "+num+(num==1?"time.":" Times.\nMade by: mortal#9121"))
 					}
 				  });
 				  
-				  var button = createButton("Tab Disguise", function tabdisguise() { 
-				  	var link = document.querySelector("link[rel*='icon']") || document.createElement('link');link.type = 'image/x-icon';link.rel = 'shortcut icon';link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';document.title = 'My Drive - Google Drive';console.log(document.title);document.getElementsByTagName('head')[0].appendChild(link) };gcloak();setInterval(gcloak, 1000);
-				  );
+				  createButton("Tab Disguise", function tabdisguise() { 
+				  	var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+					link.type = 'image/x-icon';link.rel = 'shortcut icon';
+					link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';
+					document.title = 'My Drive - Google Drive';
+					console.log(document.title);
+					document.getElementsByTagName('head')[0].appendChild(link);
+					gcloak();
+					setInterval(gcloak, 1000);
+				  });
 
 			  }
 			  if (title === "Proxies") {
-
 				  createText('Holy Unblocker');
-				  var button = createButton("Link 1", function ub1(){
+				  createButton("Link 1", function ub1(){
 				  	window.open("https://terrariaisgreat.com/", '_blank');
 				  });
-				  var button = createButton("Link 2", function ub2(){
+				  createButton("Link 2", function ub2(){
 				  	window.open("https://effectdog.me/", '_blank');
 				  });
 
 				  createText('Nebula');
-				  var button = createButton("Link 1", function nb1(){
+				  createButton("Link 1", function nb1(){
 				  	window.open("https://teachers.beauty/", '_blank');
 				  });
-				  var button = createButton("Link 2", function nb2(){
+				  createButton("Link 2", function nb2(){
 				  	window.open("https://mathtutorial.xyz/", '_blank');
 				  });
-				  var button = createButton("Link 3", function nb3() {
+				  createButton("Link 3", function nb3() {
 				  	window.open("https://teacherportal.beauty/", '_blank');
 				  });
 
@@ -187,19 +183,10 @@
 			}
 
 			function createTab(title) {
-			  var button = document.createElement('button');
-			  button.textContent = title;
-			  button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-			  button.style.cssText =
-				'width:100%;padding:10px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
-
+			  var button = document.createElement('button');button.textContent = title;button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
+			  button.style.cssText = 'width:100%;padding:10px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
 			  button.addEventListener('click', function(event) {
-				 var x = event.clientX - button.offsetLeft;
-				 var y = event.clientY - button.offsetTop;
-				 var ripple = document.createElement('span');
-				 ripple.style.left = x + 'px';
-				 ripple.style.top = y + 'px';
-				 button.appendChild(ripple);
+				 var x = event.clientX - button.offsetLeft;var y = event.clientY - button.offsetTop;var ripple = document.createElement('span');ripple.style.left = x + 'px';ripple.style.top = y + 'px';button.appendChild(ripple);
 				 setTimeout(function() {
 					ripple.remove();
 				 }, 600);
