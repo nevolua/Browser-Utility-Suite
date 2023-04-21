@@ -27,16 +27,24 @@
 			var ui = document.createElement('div');
 			ui.id = "ui";
 			ui.style.cssText = 'width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; border: 1px solid rgb(102, 102, 102); position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999;';
-			var title = document.createElement('h1');
-			title.textContent = 'Mortal Hub';
-			title.style.cssText = 'font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; font-size: 28px; color: white; text-align: center; margin-top: 20px; margin-bottom: 10px;';
-			ui.appendChild(title);
+			ui.style.borderRight = 'none';
+			ui.style.borderLeft = "none";
+
 			
 			var tabs = document.createElement('div');
-			tabs.style.cssText = 'width:150px;height:300px;background-color:rgba(22, 22, 22, 0.5);border-radius:10px;position:absolute;top:50%;left:0;transform:translateY(-50%);';
+			tabs.style.cssText = 'width:150px;height:300px;background-color:rgba(22, 22, 22, 1);border-radius:10px;position:absolute;top:50%;left:0;transform:translateY(-50%); font-size: 0;';
 
+			var titleContainer = document.createElement('div');
+			titleContainer.style.cssText = 'display: flex; justify-content: left; align-items: left; height: 70px; background-color: black; padding-left: 15px;';
+			tabs.appendChild(titleContainer);
+
+			var titleImage = document.createElement('img');
+			titleImage.src = 'https://miro.medium.com/v2/resize:fit:1400/0*IVtTYMJpv3IcZVvR';
+			titleContainer.appendChild(titleImage);
+
+			
 			var tab1 = createTab('Info');
-			var tab2 = createTab('Javascript');
+			var tab2 = createTab('JS');
 			var tab3 = createTab('Proxies');
 			var tab4 = createTab('Cheats');	
 			var tab5 = createTab('Games');
@@ -47,10 +55,12 @@
 			tabs.appendChild(tab5);
 			var content = document.createElement('div');
 			content.id = "content";
-			content.style.cssText = 'width:500px;height:300px;background-color:#333;border-radius:10px;border:1px solid #666;position:absolute;top:50%;right:0;transform:translateY(-50%);overflow-y:scroll;max-height: 300px;';
+			content.style.cssText = 'width:500px;height:300px;background-color:#333;border-radius:10px;border:1px solid black;position:absolute;top:50%;right:0;transform:translateY(-50%);overflow-y:scroll;max-height: 300px;overflow-y: auto;text-align:center;';
+			content.style.borderTopRightRadius = '0';
 
+	
 			var topBar = document.createElement('div');
-			topBar.style.cssText = 'height: 20px; background-color: black; position: absolute; top: -20px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #222;';
+			topBar.style.cssText = 'height: 20px; background-color: black; position: absolute; top: -20px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px;';
 
 			ui.appendChild(topBar);
 
@@ -78,14 +88,7 @@
 			}
 
 			function createButton(title, function_) {
-				  var content = document.getElementById("content");var button = document.createElement('button');button.textContent = title;button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';button.style.cssText = 'display:block;margin:10px auto;width:100%;padding:10px 20px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
-				  button.addEventListener('mouseenter', function() {
-					button.style.backgroundColor = '#111';
-				  });
-				  button.addEventListener('mouseleave', function() {
-					button.style.backgroundColor = '#222';
-				  });
-
+				  var content = document.getElementById("content");var button = document.createElement('button');button.textContent = title;button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';button.style.cssText = 'display:block;margin:10px auto;width:50%;padding:10px 20px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;outline-top: none;';
 				  button.addEventListener('click', function() {
 					function_();
 				  });
@@ -98,7 +101,7 @@
 				  text.textContent = value;
 				  text.style.borderTop = value === 'Links' ? 'none' : '1px solid #666';
 				  text.style.cssText =
-					'width:90%;padding:10px;background-color:rgba(22, 22, 22, 0);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-bottom: 1px solid #999;border-left: none;border-right: none;';
+					'width:100%;padding-left:0px;background-color:rgba(22, 22, 22, 0);border:none;color:#fff;font-size:14px;font-family:\'Inter\', sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center;border-left: none;border-right: none;';
 
 				  content.appendChild(text);
 			}
@@ -117,11 +120,11 @@
 			  removeAllChildNodes(content);
 			  if (title === "Info") {
 				  createText("MORTAL HUB | Many tools for school | v1.1");
-				  createText("Made by    | mortal#9121");
-				  createText("Features   | Bookmarklets, proxies, cheats, and games.");
+				  createText("Made by: mortal#9121");
+				  createText("Features: Bookmarklets, proxies, cheats, and games.");
 
 			  }
-			  if (title === "Javascript") {
+			  if (title === "JS") {
 				  var button = createButton("Disable Securly Tab Closing (only for this tab)", function() {
 				  	alert("Securly can't close this tab now");
 					window.onbeforeunload = function() { 
@@ -184,20 +187,7 @@
 
 			function createTab(title) {
 			  var button = document.createElement('button');button.textContent = title;button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-			  button.style.cssText = 'width:100%;padding:10px;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: 1px solid #444;border-bottom: 1px solid #222;border-left: none;border-right: none;';
-			  button.addEventListener('click', function(event) {
-				 var x = event.clientX - button.offsetLeft;var y = event.clientY - button.offsetTop;var ripple = document.createElement('span');ripple.style.left = x + 'px';ripple.style.top = y + 'px';button.appendChild(ripple);
-				 setTimeout(function() {
-					ripple.remove();
-				 }, 600);
-			  });
-
-			  button.addEventListener('mouseenter', function() {
-				 button.style.backgroundColor = '#111';
-			  });
-			  button.addEventListener('mouseleave', function() {
-				 button.style.backgroundColor = '#222';
-			  });
+			  button.style.cssText = 'width:100%;background-color:rgba(22, 22, 22, 0.5);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:left;border-top: none;border-bottom: 1px solid #222;border-left: none;border-right: none; outline: none;margin-top: none;margin-bottom:none;padding-top:none;padding-botton:none;padding-left:none;';
 
 			  button.addEventListener('click', function() {
 				createPage(title);
