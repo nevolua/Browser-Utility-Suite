@@ -9,12 +9,10 @@ function main() {
 
         if (event.shiftKey && event.code === 'ShiftRight') {
           try {
-            var alertUI = document.getElementById("alert-ui");
-            alertUI.style.opacity = '0';
-            alertUI.style.pointerEvents = 'none';
-            setTimeout(() => {
-                alertUI.remove();
-            }, 500);
+            var alertUIs = document.querySelectorAll("#alert-ui");
+            alertUIs.forEach(function(alertUI) {
+              alertUI.remove();
+            });
           } catch (error) {
             console.error(error);
           }
@@ -24,7 +22,7 @@ function main() {
           if (document.getElementById('mortalhubui').style.display === 'none') {
                   showAlert("The UI has been hidden. Press right shift to show it again.");
           }
-      }
+        } 
 
 
     });
@@ -68,7 +66,7 @@ function main() {
 
 
     var topBar = document.createElement('div');
-    topBar.style.cssText = 'height: 20px; background-color: black; position: absolute; top: -20px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px;';
+    topBar.style.cssText = 'height: 20px; background-color: black; position: absolute; top: -17px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px;';
 
     ui.appendChild(topBar);
 
