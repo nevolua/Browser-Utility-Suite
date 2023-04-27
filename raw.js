@@ -421,6 +421,24 @@ function main() {
                 document.body.contentEditable = 'false'; document.designMode='off';  
             }
           });
+		  
+		  createText("Audio");
+		  createToggle("Vine Boom", function(toggle){
+		  	  if (toggle === true) {
+			  	  var audio = new Audio('https://dl.sndup.net/bfws/Vine-boom-sound-effect.mp3'); 
+				  listener = document.addEventListener('keydown', function(event) { 
+					if (event.code === 'KeyK') { 
+						var clone = audio.cloneNode(); 
+						clone.currentTime = 0; 
+						clone.play(); 
+					};
+				  });
+			  } else {
+			  	  
+
+			  }
+		  	  
+		  });
           
 
       } 
@@ -747,7 +765,7 @@ overlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 
 var alertBox = document.createElement("div");
 alertBox.style.cssText = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; max-width: 600px; padding: 20px; background-color: #212121; color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.5s; font-family: 'Poppins', sans-serif;";
 var titleText = document.createElement("h1");
-titleText.style.cssText = "font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 20px; letter-spacing: 2px; font-family: 'Space Grotesk', sans-serif;";
+titleText.style.cssText = "font-size: 36px; font-weight: 800; text-align: center; margin-bottom: 20px; letter-spacing: 2px; font-family: 'Space Grotesk', sans-serif;background-color:rgba(0,0,0,0);border:none;";
 titleText.innerHTML = "Mortal Hub";
 var messageText = document.createElement("p");
 messageText.style.cssText = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
