@@ -1,4 +1,4 @@
-try {
+javascript:try {
   document.getElementById("mortalhubui").remove();
 } catch (e) {
   console.log(e);
@@ -193,6 +193,30 @@ function main() {
         alertCount--;
       }, timeout);
     }
+	
+	var cloakEnabled = document.createElement('h1');
+	cloakEnabled.id = 'mortal-hub-cloak';
+	cloakEnabled.innerHTML = "FALSE";
+	cloakEnabled.style.display = 'none';
+	
+	document.body.appendChild(cloakEnabled);
+	
+	var wssss = window.open("https://drive.google.com/home", "", "width=1,height=1, top=2000,left=2000"); 
+	function windowsss() {
+			if(document.hasFocus) {
+				if (document.getElementById('mortal-hub-cloak').innerHTML === "TRUE") {
+					wssss.focus();
+				}
+				
+			} 
+
+			setTimeout(() => {
+				windowsss();
+			}, "50")
+
+	}
+
+	windowsss();
     
 
     function createButton(title, function_) {
@@ -369,6 +393,14 @@ function main() {
           });
           
           createText('Securly');
+		  createToggle("Monitoring", function(toggle) {
+              if (toggle === true) {   
+                 document.getElementById('mortal-hub-cloak').innerHTML = 'TRUE';
+            } else {    
+                document.getElementById('mortal-hub-cloak').innerHTML = 'FALSE';
+            }
+          });
+          
           createButton("Disable Securly Tab Closing", function() {
               showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
             window.onbeforeunload = function() { 
@@ -386,7 +418,8 @@ function main() {
 
             showAlert('Tab is now cloaked.')
           });
-          
+		  
+
           
           
           createText('Fun');
@@ -421,24 +454,6 @@ function main() {
                 document.body.contentEditable = 'false'; document.designMode='off';  
             }
           });
-		  
-		  createText("Audio");
-		  createToggle("Vine Boom", function(toggle){
-		  	  if (toggle === true) {
-			  	  var audio = new Audio('https://dl.sndup.net/bfws/Vine-boom-sound-effect.mp3'); 
-				  listener = document.addEventListener('keydown', function(event) { 
-					if (event.code === 'KeyK') { 
-						var clone = audio.cloneNode(); 
-						clone.currentTime = 0; 
-						clone.play(); 
-					};
-				  });
-			  } else {
-			  	  
-
-			  }
-		  	  
-		  });
           
 
       } 
@@ -801,7 +816,8 @@ okButton.addEventListener("click", function() {
   setTimeout(function() {
     document.body.removeChild(overlay);
     document.body.style.cssText = "";
-
-    main();
+	
+	main();
+    
   }, 500);
 });
