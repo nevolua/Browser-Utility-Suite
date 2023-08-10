@@ -1,8 +1,13 @@
 	javascript:(function() {
+		var scriptUrl = 'https://craexz.github.io/mortal-hub/script.js';
+		if (scriptUrl.startsWith('javascript:')) {
+		  scriptUrl = scriptUrl.substring('javascript:'.length);
+		}
+
 		var script = document.createElement('script');
-		script.src = 'https://craexz.github.io/mortal-hub/script.js';
+		script.src = scriptUrl;
 		script.onerror = function() {
-			showErrorOverlay();
+		  showErrorOverlay();
 		};
 		document.body.appendChild(script);
 
