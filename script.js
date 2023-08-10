@@ -5,19 +5,6 @@ javascript:try {
 }
 
 function main() {
-    let ver = 0;
-    const repoURL = 'https://api.github.com/repos/Craexz/mortal-hub';
-
-    fetch(repoURL)
-	    .then(response => response.json())
-	    .then(data => {
-	        const commitCount = data.commits;
-	        ver = commitCount;
-	    })
-	    .catch(error => {
-	        console.error('Error fetching commit count:', error);
-	    });
-   
     document.addEventListener('keydown', function(event) {
         if (event.shiftKey && event.code === 'ShiftRight') {
           document.getElementById('mortalhubui').style.display = document.getElementById('mortalhubui').style.display === 'none' ? 'block' : 'none';
@@ -385,7 +372,18 @@ function main() {
 
       removeAllChildNodes(content);
       if (title === "Info") {
-          createText("MORTAL HUB v"+ver.toString());
+	const repoURL = 'https://api.github.com/repos/Craexz/mortal-hub';
+
+	  fetch(repoURL)
+	    .then(response => response.json())
+	    .then(data => {
+	        const commitCount = data.commits;
+	        createText("MORTAL HUB v"+commitCount.toString());
+	    })
+	    .catch(error => {
+	        console.error('Error fetching commit count:', error);
+	    });
+	      
           createText("Made by: bznel#0");
           createText("Features: Bookmarklets, proxies, cheats, soundboard, and games.");
 
