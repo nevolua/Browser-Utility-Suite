@@ -24,7 +24,7 @@
 			messageText.innerHTML = "The script doesn't have permission to load on this site. (XSS is blocked)";
 			var okButton = document.createElement("button");
 			okButton.style.cssText = "display: block; margin: auto; padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease;width: 100%;";
-			okButton.innerHTML = "CONTINUE";
+			okButton.innerHTML = "OK";
 
 			alertBox.appendChild(titleText);
 			alertBox.appendChild(messageText);
@@ -53,7 +53,6 @@
 			  setTimeout(function() {
 				document.body.removeChild(overlay);
 				document.body.style.cssText = "";
-
 			  }, 500);
 			});
 		}
