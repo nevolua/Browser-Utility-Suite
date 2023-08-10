@@ -372,9 +372,9 @@ function main() {
 
       removeAllChildNodes(content);
       if (title === "Info") {
-          createText("MORTAL HUB v1.1");
-          createText("Made by: mortal#9121");
-          createText("Features: Bookmarklets, proxies, cheats, and games.");
+          createText("MORTAL HUB");
+          createText("Made by: bznel#0");
+          createText("Features: Bookmarklets, proxies, cheats, soundboard, and games.");
 
       }
       if (title === "JS") {
