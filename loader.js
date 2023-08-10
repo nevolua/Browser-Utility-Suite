@@ -1,6 +1,6 @@
 	javascript:(function() {
 		var script = document.createElement('script');
-		script.src = 'https://craexz.github.io/mortal-hub/raw.js';
+		script.src = 'https://craexz.github.io/mortal-hub/script.js';
 		script.onerror = function() {
 			showErrorOverlay();
 		};
