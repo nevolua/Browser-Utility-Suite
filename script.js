@@ -1,4 +1,4 @@
-javascript:try {
+try {
   document.getElementById("mortalhubui").remove();
 } catch (e) {
   console.log(e);
