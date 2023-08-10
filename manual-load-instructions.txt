@@ -1,3 +1,0 @@
-1. Go to https://raw.githubusercontent.com/Craexz/mortal-hub/main/script.js
-2. Press ctrl+a to select all, then drag the selected script to your bookmarks bar
-3. Now, when you click the newly created bookmark, it will load the latest version of the script. 
