@@ -21,7 +21,7 @@
 			titleText.innerHTML = "Error";
 			var messageText = document.createElement("p");
 			messageText.style.cssText = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
-			messageText.innerHTML = "The script doesn't have permission to load on this site. The button below will open a page with further instructions to use the script on unsupported sites like this one.";
+			messageText.innerHTML = "The script doesn't have permission to load on this site. (XSS is blocked)";
 			var okButton = document.createElement("button");
 			okButton.style.cssText = "display: block; margin: auto; padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease;width: 100%;";
 			okButton.innerHTML = "CONTINUE";
@@ -53,8 +53,6 @@
 			  setTimeout(function() {
 				document.body.removeChild(overlay);
 				document.body.style.cssText = "";
-
-				window.open('https://craexz.github.io/mortal-hub/unsupported-pages.html', '_blank');
 
 			  }, 500);
 			});
