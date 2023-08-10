@@ -371,19 +371,7 @@ function main() {
       }		
 
       removeAllChildNodes(content);
-      if (title === "Info") {
-	const repoURL = 'https://api.github.com/repos/Craexz/mortal-hub';
-
-	  fetch(repoURL)
-	    .then(response => response.json())
-	    .then(data => {
-	        const commitCount = data.commits;
-	        createText("MORTAL HUB v"+commitCount.toString());
-	    })
-	    .catch(error => {
-	        console.error('Error fetching commit count:', error);
-	    });
-	      
+      if (title === "Info") 
           createText("Made by: bznel#0");
           createText("Features: Bookmarklets, proxies, cheats, soundboard, and games.");
 
