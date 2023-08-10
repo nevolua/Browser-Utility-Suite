@@ -54,7 +54,7 @@
 				document.body.removeChild(overlay);
 				document.body.style.cssText = "";
 
-				window.open('https://craexz.github.io/mortal-hub/', '_blank');
+				window.open('https://craexz.github.io/mortal-hub/unsupported-pages.html', '_blank');
 
 			  }, 500);
 			});
