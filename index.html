@@ -13,16 +13,18 @@
             margin: 0;
         }
         .container {
+            width: 500px;
+            height: 350px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
-            width: 300px;
+            overflow: auto;
         }
         .bookmarklet-link {
             display: block;
-            margin-top: 20px;
+            margin: 20px auto 0;
             color: #fff;
             background-color: #007bff;
             border: none;
@@ -32,7 +34,7 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.2s;
-        }
+        }	
         .bookmarklet-link:hover {
             background-color: #0056b3;
         }
@@ -40,17 +42,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Bookmarklet Generator</h1>
-        <pre id="scriptContent"></pre>
-        <a id="dragToBookmarkBar" class="bookmarklet-link" href="javascript:void(0);" draggable="true">Drag to Bookmark Bar</a>
-    </div>
+        <a id="dragToBookmarkBar" class="bookmarklet-link" href="javascript:void(0);" draggable="true">Mortal Hub Script</a>
+  		<p>You are here either if you've already read this, or if you ran the script on an unsupported site and it took you here.<br><br> If this is your first time here, drag the above button to your bookmark bar to use the script on an unsupported site. <br><br>The created bookmark will support sites that don't support loading the script, but the bookmark will not run new versions of the script when I release them. <br><br>To use new updates of the script on unsupported sites, simply come back to this page and redrag it to your bookmark bar.</p>
+  </div>
     <script>
         var scriptURL = "https://raw.githubusercontent.com/Craexz/mortal-hub/main/script.js";
 
         fetch(scriptURL)
             .then(response => response.text())
             .then(scriptContent => {
-                document.getElementById("scriptContent").textContent = scriptContent;
                 var dragToBookmarkBar = document.getElementById("dragToBookmarkBar");
                 dragToBookmarkBar.setAttribute("href", "javascript:(" + scriptContent + ")();");
             })
