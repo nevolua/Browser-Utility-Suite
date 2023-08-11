@@ -34,7 +34,7 @@ function main() {
     createTab('Info'),
     createTab('JS'),
     createTab('Proxies'),
-    createTab('Soundboard'),
+    createTab('Sounds'),
     createTab('Cheats'),
     createTab('Math')
   ];
@@ -373,7 +373,7 @@ function main() {
     removeAllChildNodes(content);
     if (title === "Info") {
       createText("Made by: bznel#0");
-      createText("Features: Bookmarklets, proxies, cheats, soundboard, and games.");
+      createText("Features: Bookmarklets, proxies, cheats, Sounds, and games.");
 
     }
     if (title === "JS") {
@@ -538,7 +538,7 @@ function main() {
       })
     }
 
-    if (title === "Soundboard") {
+    if (title === "Sounds") {
       createButton("Vine Boom", function() {
         const audio = new Audio("https://craexz.github.io/mortal-hub/Vine-boom-sound-effect.mp3");
         audio.play();
