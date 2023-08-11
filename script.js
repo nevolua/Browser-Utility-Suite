@@ -783,7 +783,7 @@ function main() {
   titleText.innerHTML = "Mortal Hub";
   var messageText = document.createElement("p");
   messageText.style.cssText = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
-  messageText.innerHTML = "Please note that Mortal Hub's UI will only be available on this page. If you navigate away from this page, for example by clicking a link or going to a new URL, the UI will disappear and you'll need to run the script again to restore it.";
+  messageText.innerHTML = "Please note that the UI will only be available on this page. If you navigate away from this page, for example by clicking a button, link or going to a new URL, the UI will disappear and you'll need to run the script again to restore it.";
   var okButton = document.createElement("button");
   okButton.style.cssText = "display: block; margin: auto; padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease;width: 100%;";
   okButton.innerHTML = "I UNDERSTAND";
