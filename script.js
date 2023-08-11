@@ -466,16 +466,7 @@ function main() {
         window.open("https://effectdog.me/", '_blank');
       });
 
-      createText('Nebula');
-      createButton("Link 1", function() {
-        window.open("https://teachers.beauty/", '_blank');
-      });
-      createButton("Link 2", function() {
-        window.open("https://mathtutorial.xyz/", '_blank');
-      });
-      createButton("Link 3", function() {
-        window.open("https://teacherportal.beauty/", '_blank');
-      });
+      createText("Don't actually use these, its against the schools terms");
 
 
     }
