@@ -371,7 +371,7 @@ function main() {
       }		
 
       removeAllChildNodes(content);
-      if (title === "Info") 
+      if (title === "Info") {
           createText("Made by: bznel#0");
           createText("Features: Bookmarklets, proxies, cheats, soundboard, and games.");
 
