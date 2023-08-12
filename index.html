@@ -25,9 +25,10 @@
         }
         .bookmarklet-link {
             display: block;
+            width: 30%;
             margin: 20px auto 0;
             color: #fff;
-            background-color: #007bff;
+            background-color: #141414;
             border: none;
             border-radius: 4px;
             padding: 10px 15px;
@@ -37,14 +38,16 @@
             transition: background-color 0.2s;
         }	
         .bookmarklet-link:hover {
-            background-color: #0056b3;
+            background-color: #ffffff;
+            color: #141414;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a id="dragToBookmarkBar" class="bookmarklet-link" href="javascript:void(0);" draggable="true">Mortal Hub Script</a>
-  		<p>Drag the above button to your bookmark bar which you can click to use Mortal Hub. <br><br>It will attempt to load the latest version of the script. If an error occurs, it will provide instructions for using the script on unsupported sites (e.g., GitHub).</p>
+        <a id="dragToBookmarkBar" class="bookmarklet-link" href="javascript:void(0);" draggable="true">Mortal Hub Script</a> 
+        <h1>^^^</h1>
+  		<p>Drag the above button to your bookmark bar. Upon clicking the bookmark, the script will fetch the latest version of mortal hub and load it to your browser.<br><br>You may also click the button to load and test the script here.</p>
     </div>
     <script>	
         var scriptURL = "https://raw.githubusercontent.com/Craexz/mortal-hub/main/loader.js";
