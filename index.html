@@ -5,19 +5,20 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #1e1e1e;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #fff;
         }
         .container {
             width: 500px;
             height: 350px;
-            background-color: #fff;
+            background-color: #282c36;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
             padding: 20px;
             text-align: center;
             overflow: auto;
@@ -43,7 +44,7 @@
 <body>
     <div class="container">
         <a id="dragToBookmarkBar" class="bookmarklet-link" href="javascript:void(0);" draggable="true">Mortal Hub Script</a>
-  		<p>Drag the above button to your bookmark bar which you can click to use mortal hub. <br><br>It will attempt to load the latest version of the script, but if an error occurs, it will give you instructions to use the script on unsupported sites (ex: github)</p>
+  		<p>Drag the above button to your bookmark bar which you can click to use Mortal Hub. <br><br>It will attempt to load the latest version of the script. If an error occurs, it will provide instructions for using the script on unsupported sites (e.g., GitHub).</p>
     </div>
     <script>	
         var scriptURL = "https://raw.githubusercontent.com/Craexz/mortal-hub/main/loader.js";
