@@ -1,5 +1,5 @@
 javascript:(function() {
-    var scriptUrl = 'https://craexz.github.io/mortal-hub/script.js';
+    var scriptUrl = 'https://bznel.github.io/Mortal-Hub/script.js';
     if (scriptUrl.startsWith('javascript:')) {
       scriptUrl = scriptUrl.substring('javascript:'.length);
     }
