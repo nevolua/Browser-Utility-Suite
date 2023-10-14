@@ -10,7 +10,7 @@ Pure JS script, usable by either running as a bookmarklet or running in your bro
 
 ## Using the script
 
-To run the script as a bookmarklet, naviagate to https://craexz.github.io/mortal-hub/ and follow the instructions
+To run the script as a bookmarklet, navicate to https://bznel.github.io/mortal-hub/ and follow the instructions
 
 If you want to copy its code to run in the url bar/dev console (manually), just right click the button on the webpage, then click copy link address.
 
