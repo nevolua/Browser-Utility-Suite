@@ -670,7 +670,7 @@ function loadPage(title) {
   if (title === "Sounds") {
     createText("‎ ‎ ");
     createButton("Vine Boom", function() {
-      var audio = new Audio("https://craexz.github.io/mortal-hub/Vine-boom-sound-effect.mp3");
+      var audio = new Audio("https://bznel.github.io/Mortal-Hub/Vine-boom-sound-effect.mp3");
       audio.play();
     });
 
