@@ -748,7 +748,7 @@ window.addEventListener('beforeunload', function (e) {
 try {
   try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
 
-  Utils.showAlert("Loaded!");
+  Utils.showAlert("Loaded! Right shift to toggle UI");
   startPrompt();
 } catch (error) {
   if (error.message !== "Exit") {
