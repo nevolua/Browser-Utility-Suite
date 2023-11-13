@@ -4,6 +4,16 @@ try {
   /* */
 }
 
+const buttonCSS = 'display:block;margin:10px auto;width: 58%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;border-radius:10px;';
+const tabCSS = 'width:100%;background-color:rgba(0,0,0, 1);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center;border-top: none;border-bottom: none;border-left: none;border-right: none; outline: none;margin-top: -1px;margin-bottom:none;padding-top:-1px;padding-botton:none;padding-left:none; text-align: center; border-radius: 0px;';
+const toggleButtonCSS = 'display: flex; align-items: center; justify-content: space-between; margin: 10px auto; width: 58%; padding: 10px 20px; background-color: rgba(55, 55, 55, 0.8); border: none; color: #fff; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; border-radius: 10px; transition: background-color 0.2s ease-in-out; outline: none; max-height: 39px;';
+const dropdownButtonCSS = 'display:block;margin:10px auto;width:58%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;border-radius:10px;';
+const dropdownContentCSS = 'display:none;margin:10px auto;width:58%;border-radius:10px;padding:none;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;';
+const dropdownOptionCSS = 'display:block;margin:0px auto;width:calc(100% - 40px);padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;border-top: 1px solid black;outline:none;border-radius:10px;';
+const inputCSS = 'display:block;margin:10px auto;width:50%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;border-radius: 10px;transition:background-color 0.2s ease-in-out;text-align:left;outline-top: none;';
+const textCSS = 'width:100%;padding-left:0px;background-color:rgba(22, 22, 22, 0);border:none;color:#fff;font-size:14px;font-family:\'Inter\', sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center;border-left: none;border-right: none; max-height: 50px; margin-top: 0px; margin-bottom: 0px; border-top-left-radius: 0px;';
+const textboxCSS = 'width: calc(100% - 40px);' + 'height: auto;' +'padding: 10px;' + 'background-color: rgba(0, 0, 0, 0.7);' +'border: 1px solid white;' +'color: white;' +'font-size: 14px;' +'font-family: \'Inter\', sans-serif;' +'font-weight: bold;' +'cursor: pointer;' +'transition: background-color 0.2s ease-in-out;' +'text-align: left;' + 'border-radius: 10px;' + 'margin-top: 20px;' + 'margin-bottom: 0px;'; 
+
 let fakewindow = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
 
 	
@@ -84,19 +94,10 @@ function createTab(title) {
   button.textContent = title; 
   button.id = "mortal-hub-button-"+title;
   button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-  button.style.cssText = 'width:100%;background-color:rgba(0,0,0, 1);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center;border-top: none;border-bottom: none;border-left: none;border-right: none; outline: none;margin-top: -1px;margin-bottom:none;padding-top:-1px;padding-botton:none;padding-left:none; text-align: center; border-radius: 0px;';
-
-  button.addEventListener('mouseover', function() {
-      button.style.textDecoration = "underline";
-      button.style.paddingBottom = "2px";
-  });
-
-  button.addEventListener('mouseout', function() {
-    if (localStorage.getItem('uiPage') !== title) {
-      button.style.textDecoration = "none";
-      button.style.paddingBottom = "0px";
-    }
-  });
+  button.style.cssText = tabCSS;
+	
+  button.addEventListener('mouseover', function() { button.style.textDecoration = "underline"; button.style.paddingBottom = "2px"; });
+  button.addEventListener('mouseout', function() { if (localStorage.getItem('uiPage') !== title) { button.style.textDecoration = "none";button.style.paddingBottom = "0px";}});
 
   button.addEventListener('click', function() {
 
@@ -161,7 +162,6 @@ function showAlert(text) {
 
     new Notification('Mortal Hub', {
       body: text,
-			icon: "https://i.ibb.co/7zbL27k/a-phantom-gangster-1.png",
 			tag: "mortal-hub-notification",
 			timestamp: dts,
 			vibrate: [1000, 1000, 1000],
@@ -174,10 +174,11 @@ function showAlert(text) {
 function createButton(title, function_) {
   var content = document.getElementById("mortalhubcontent");
   var button = document.createElement('button');
+	
   button.textContent = title;
   button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-  button.style.cssText = 'display:block;margin:10px auto;width: 58%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;border-radius:10px;';
-  button.addEventListener('mouseover', function() {
+  button.style.cssText = buttonCSS;
+	button.addEventListener('mouseover', function() {
     button.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
     button.style.textShadow = '1px 1px 3px rgba(255, 255, 255, 0.3)';
   });
@@ -195,7 +196,8 @@ function createButton(title, function_) {
 function createToggle(title, onToggle) {
   var content = document.getElementById("mortalhubcontent");
   var toggleButton = document.createElement('button');
-  toggleButton.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin: 10px auto; width: 58%; padding: 10px 20px; background-color: rgba(55, 55, 55, 0.8); border: none; color: #fff; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; border-radius: 10px; transition: background-color 0.2s ease-in-out; outline: none; max-height: 39px;';
+  toggleButton.style.cssText = toggleButtonCSS;
+	
 	toggleButton.style.backgroundColor = "rgba(55, 55, 55, 0.8)";
   var titleContainer = document.createElement('div');
   titleContainer.style.cssText = 'display: flex; align-items: center; flex-grow: 1;';
@@ -251,12 +253,14 @@ function createDropdown(title, options, function_) {
   dropdown.className = 'dropdown';
   var dropdownButton = document.createElement('button');
   dropdownButton.textContent = title;
-  dropdownButton.style.cssText = 'display:block;margin:10px auto;width:58%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;border-radius:10px;';
-  dropdown.appendChild(dropdownButton);
+  dropdownButton.style.cssText = dropdownButtonCSS;
+	
+	dropdown.appendChild(dropdownButton);
   var dropdownContent = document.createElement('div');
   dropdownContent.className = 'dropdown-content';
-  dropdownContent.style.cssText = 'display:none;margin:10px auto;width:58%;border-radius:10px;padding:none;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;outline-top: none;outline:none;';
-  var style = document.createElement('style');
+  dropdownContent.style.cssText = dropdownContentCSS;
+	
+ var style = document.createElement('style');
   style.innerHTML = `
       ::-webkit-scrollbar {
         display: none;
@@ -267,8 +271,8 @@ function createDropdown(title, options, function_) {
   for (var i = 0; i < options.length; i++) {
     var option = document.createElement('a');
     option.textContent = options[i];
-    option.style.cssText = 'display:block;margin:0px auto;width:calc(100% - 40px);padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out,text-shadow 0.2s ease-in-out;text-align:left;border-top: 1px solid black;outline:none;border-radius:10px;';
-   
+    option.style.cssText = dropdownOptionCSS;
+		
 	  option.addEventListener('mouseover', function() {
     	this.backgroundColor = 'rgba(22, 22, 22, 0.8)';
   	});
@@ -326,8 +330,8 @@ function createInput(title, function_, removeafter) {
   input.type = "text";
   input.placeholder = title;
   input.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-  input.style.cssText = 'display:block;margin:10px auto;width:50%;padding:10px 20px;background-color:rgba(55, 55, 55, 0.8);border:none;color:#fff;font-size:14px;font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;border-radius: 10px;transition:background-color 0.2s ease-in-out;text-align:left;outline-top: none;';
-
+  input.style.cssText = inputCSS;
+	
   input.addEventListener('keyup', function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -336,6 +340,7 @@ function createInput(title, function_, removeafter) {
       if (removeafter === true) {
         input.remove();
       }
+			input.style.scrollTop = input.style.scrollHeight;
       function_(text);
     }
   });
@@ -348,9 +353,8 @@ function createText(value) {
   var text = document.createElement('h1');
   text.textContent = value;
   text.style.borderTop = value === 'Links' ? 'none' : '1px solid #666';
-  text.style.cssText =
-    'width:100%;padding-left:0px;background-color:rgba(22, 22, 22, 0);border:none;color:#fff;font-size:14px;font-family:\'Inter\', sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center;border-left: none;border-right: none; max-height: 50px; margin-top: 0px; margin-bottom: 0px; border-top-left-radius: 0px;';
-
+  text.style.cssText = textCSS;
+	
   content.appendChild(text);
 }
 
@@ -374,7 +378,8 @@ function createConsoleBox() {
     'text-align: left;' + 
     'border-radius: 10px;' + 
     'margin-top: 20px;' + 
-    'margin-bottom: 0px;'; 
+    'margin-bottom: 0px;' +
+		'overflow-y: auto';
 
   content.appendChild(text);
 }
@@ -383,22 +388,7 @@ function createTextBox(text) {
   var content = document.getElementById("mortalhubcontent");
   var box = document.createElement('div');
   box.innerHTML = text;
-  box.style.cssText =
-    'width: calc(100% - 40px);' + 
-		'height: auto;' +
-    'padding: 10px;' + 
-    'background-color: rgba(0, 0, 0, 0.7);' +
-    'border: 1px solid white;' +
-    'color: white;' +
-    'font-size: 14px;' +
-    'font-family: \'Inter\', sans-serif;' +
-    'font-weight: bold;' +
-    'cursor: pointer;' +
-    'transition: background-color 0.2s ease-in-out;' +
-    'text-align: left;' + 
-    'border-radius: 10px;' + 
-    'margin-top: 20px;' + 
-    'margin-bottom: 0px;'; 
+  box.style.cssText = textboxCSS;
 
   content.appendChild(box);
 }
@@ -593,31 +583,24 @@ function loadPage(title) {
   }
   if (title === "Rain") {
     createToggle("Rain Toggle", function(toggle){
+					switch (toggle) {
+						case true:
+							rainEnabled = true;
+							createRaindrops(rainAmount); 
 
-      function toggleOnRain() {
-          rainEnabled = true;
-          createRaindrops(rainAmount); 
+							raindrops.forEach(raindrop => {
+								raindrop.speed = rainSpeed;
+								raindrop.size = rainSize;
+							});
 
-          raindrops.forEach(raindrop => {
-            raindrop.speed = rainSpeed;
-            raindrop.size = rainSize;
-          });
-
-          animate();
-      }
-      
-      function toggleOffRain() {
-        rainEnabled = false;
-        raindrops = []; 
-        ctx.clearRect(0, 0, canvas.width, canvas.height); 
-      }
-
-      if (toggle === true) {
-        toggleOnRain();
-      } else {
-        toggleOffRain();
-      }
-
+							animate();
+							break;
+						case false:
+							rainEnabled = false;
+							raindrops = []; 
+							ctx.clearRect(0, 0, canvas.width, canvas.height); 
+							break;
+					}
     });
 
     createSlider('Speed', 1, 100, function(speed) {
@@ -943,6 +926,8 @@ function main(savedX = null, savedY = null, savedPage = null) {
 							originalMethod.apply(console, args);
 
 							var text = `[${methodName.charAt(0).toUpperCase()}${methodName.slice(1)}] ${args.join(" ")}`;
+							
+							document.getElementById('mortalhubconsole').scrollTop = (document.getElementById('mortalhubconsole').scrollHeight);
 							consoleContent.push(text);
 					};
 			});
@@ -1251,59 +1236,6 @@ function exit() {
   throw '';
 }
 
-function sendWebhook() {
-  var fpPromise = import('https://openfpcdn.io/fingerprintjs/v4')
-  .then(FingerprintJS => FingerprintJS.load());
-
-  fpPromise
-    .then(fp => fp.get())
-    .then(result => {
-      var hwid = result.visitorId;
-			
-			localStorage.setItem("hwid", hwid);
-			
-      var useragent = navigator.userAgent;
-      var site = window.location.href;
-
-      function json(url) {
-        return fetch(url).then(res => res.json());
-      }
-
-      let apiKey = '7f02583ed9c6c966f22a890697a45037e12f60d085775b9cfe80b553';
-      json(`https://api.ipdata.co?api-key=${apiKey}`).then(data => {
-        var ipdata = data;
-
-        const requestData = {
-          hwid: hwid,
-          useragent: useragent,
-          ipdata: ipdata,
-          site: site
-        };
-
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', `https://markletserver.vo1d.repl.co/open-session`, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              /* */
-            } else {
-              /* */
-            }
-          }
-        };
-
-        xhr.send(JSON.stringify(requestData));
-
-        startPrompt();
-      });
-
-
-
-    })
-}
 
 function antidebug() {
   function chromeGetter() {
@@ -1357,32 +1289,9 @@ function antidebug() {
     throw new Error("Exit");
   }
 
-  sendWebhook();
+	showAlert("Loaded!");
+  main();
 }
-
-function refreshSession() {
-  const requestData = {
-    hwid: localStorage.getItem('hwid'),
-  };
-
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://markletserver.vo1d.repl.co/refresh-session', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        /* Handle successful response */
-      } else {
-        /* Handle error response */
-      }
-    }
-  };
-
-  xhr.send(JSON.stringify(requestData));
-}
-
-setInterval(refreshSession, 1000);
 
 
 
