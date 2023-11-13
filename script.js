@@ -16,77 +16,6 @@ const textboxCSS = 'width: calc(100% - 40px);' + 'height: auto;' +'padding: 10px
 
 let fakewindow = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
 
-	
-let rainAmount = 100;
-let rainEnabled = true;
-let rainSize = 60;
-let rainSpeed = 50;
-let raindrops = [];
-var rainDiv = document.createElement('div');
-var canvas = document.createElement('canvas');
-var ctx = canvas.getContext('2d');
-var raindropImage = new Image();
-
-raindropImage.src = "https://th.bing.com/th/id/R.f91f5c0193259721df9818554d48cd2c?rik=kYNGllBg4rzMbQ&riu=http%3a%2f%2fgetdrawings.com%2fvectors%2fraindrop-vector-12.png&ehk=9Hjwv2RqrS8gXxF1SO3ef6GzlTt3jZsp2n%2f7WPhkUaY%3d&risl=&pid=ImgRaw&r=0";
-
-rainDiv.style.position = 'fixed';
-rainDiv.style.top = '0';
-rainDiv.style.left = '0';
-rainDiv.style.width = '100%';
-rainDiv.style.height = '100%';
-rainDiv.style.pointerEvents = 'none';
-rainDiv.style.overflow = 'hidden';
-
-class Raindrop {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = -Math.random() * canvas.height;
-    this.speed = rainSpeed;
-    this.size = rainSize;
-  }
-
-  fall() {
-    this.y += this.speed;
-
-    if (this.y > canvas.height) {
-      this.y = -this.size;
-      this.x = Math.random() * canvas.width;
-    }
-  }
-
-  draw() {
-    ctx.drawImage(raindropImage, this.x, this.y, this.size, this.size);
-  }
-}
-
-function createRaindrops(count) {
-  for (let i = 0; i < count; i++) {
-    raindrops.push(new Raindrop());
-  }
-}
-
-function animate() {
-  if (rainEnabled) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    raindrops.forEach(raindrop => {
-      raindrop.fall();
-      raindrop.draw();
-    });
-
-    requestAnimationFrame(animate);
-  }
-}
-
-window.addEventListener('resize', () => {
-  canvas.width = rainDiv.clientWidth;
-  canvas.height = rainDiv.clientHeight;
-});
-
-rainDiv.appendChild(canvas);
-document.body.appendChild(rainDiv);
-canvas.width = rainDiv.clientWidth;
-canvas.height = rainDiv.clientHeight;
 
 
 function createTab(title) {
@@ -441,17 +370,7 @@ async function isImageUrl(url) {
   }
 }
 
-function adjustRaindropCount(raindropsArray, targetAmount) {
-  var currentAmount = raindropsArray.length;
 
-  if (currentAmount < targetAmount) {
-    var additionalAmount = targetAmount - currentAmount;
-    createRaindrops(additionalAmount);
-  } else if (currentAmount > targetAmount) {
-    var excessAmount = currentAmount - targetAmount;
-    raindropsArray.splice(0, excessAmount);
-  }
-}
 
 function loadPage(title) {
   localStorage.setItem("uiPage", title);
@@ -490,11 +409,6 @@ function loadPage(title) {
 		createText("‎ ‎ ");
     createText("Console");
     createTextBox("- Console box displays logs, errors, and warnings<br>- Command input allows you to run any javascript commands");
-
-    createText("‎ ‎ ");
-		createText("Rain");
-		createTextBox('- Rain Toggle (turns off and on raining sprites)<br>- Speed (velocity of falling "rain")<br>- Size (resizes rain sprites)<br>- Amount (adjusts count of rain sprites on the page)<br>- Image (image url to change rain sprite)');
-		
 
 
 		
@@ -580,75 +494,6 @@ function loadPage(title) {
     });
 
 
-  }
-  if (title === "Rain") {
-    createToggle("Rain Toggle", function(toggle){
-					switch (toggle) {
-						case true:
-							rainEnabled = true;
-							createRaindrops(rainAmount); 
-
-							raindrops.forEach(raindrop => {
-								raindrop.speed = rainSpeed;
-								raindrop.size = rainSize;
-							});
-
-							animate();
-							break;
-						case false:
-							rainEnabled = false;
-							raindrops = []; 
-							ctx.clearRect(0, 0, canvas.width, canvas.height); 
-							break;
-					}
-    });
-
-    createSlider('Speed', 1, 100, function(speed) {
-      rainSpeed = speed;
-
-      raindrops.forEach(raindrop => {
-        raindrop.speed = speed;
-
-      });
-    });
-
-    createSlider('Size', 20, 100, function(size) {
-      rainSize = size;
-
-      raindrops.forEach(raindrop => {
-        raindrop.size = size;
-      });
-
-    });
-
-    createSlider('Amount', 100, 500, function(amount) {
-
-      rainAmount = amount;
-
-      adjustRaindropCount(raindrops, amount);
-
-
-    });
-
-
-
-    createInput("Image", function(url) {
-      isImageUrl(url)
-        .then(result => {
-          if (result) {
-            raindropImage.src = url;
-          } else {
-            raindropImage.src = "https://th.bing.com/th/id/R.f91f5c0193259721df9818554d48cd2c?rik=kYNGllBg4rzMbQ&riu=http%3a%2f%2fgetdrawings.com%2fvectors%2fraindrop-vector-12.png&ehk=9Hjwv2RqrS8gXxF1SO3ef6GzlTt3jZsp2n%2f7WPhkUaY%3d&risl=&pid=ImgRaw&r=0";
-            showAlert("Reset to default raindrop image");
-          }
-        })
-        .catch(error => {
-          console.error("Error checking URL:", error);
-        });
-
-      
-    }, false);
-    
   }
   if (title === "Sounds") {
     createText("‎ ‎ ");
@@ -824,7 +669,6 @@ function main(savedX = null, savedY = null, savedPage = null) {
     createTab('Info'),
     createTab('Scripts'),
     createTab('Console'),
-    createTab('Rain'),
     createTab('Sounds'),
     
 	
