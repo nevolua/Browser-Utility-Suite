@@ -22,7 +22,7 @@ const liabilityMessage   = "This is public software that has been developed to t
 
 let fakewindow = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
 
-
+var barrelRollAnimating = false;
 
 /*
     Utility Functions 
@@ -53,299 +53,312 @@ class Utils {
   }
   static showAlert(text) {
     Notification.requestPermission().then(permission => {
-    if (permission === 'granted') {
-      const dts = Math.floor(Date.now());
+        if (permission === 'granted') {
+        const dts = Math.floor(Date.now());
 
-      new Notification('Mortal Hub', {
-        body: text,
-        tag: "mortal-hub-notification",
-        timestamp: dts,
-        vibrate: [1000, 1000, 1000],
-        renotify: true
-      });
-    }
-  });
-  }
-  static createTab(title) {
-    var button = document.createElement('button'); 
-    button.textContent = title; 
-    button.id = "mortal-hub-button-"+title;
-    button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-    button.style.cssText = tabCSS;
-    
-    button.addEventListener('mouseover', function() { button.style.textDecoration = "underline"; button.style.paddingBottom = "2px"; });
-    button.addEventListener('mouseout', function() { if (localStorage.getItem('uiPage') !== title) { button.style.textDecoration = "none";button.style.paddingBottom = "0px";}});
-
-    button.addEventListener('click', function() {
-
-      if (title !== localStorage.getItem("uiPage")) {
-        var oldBtn = document.getElementById("mortal-hub-button-"+localStorage.getItem("uiPage"));
-
-        if (oldBtn) {
-          oldBtn.style.textDecoration = "none";
+        new Notification('Mortal Hub', {
+            body: text,
+            tag: "mortal-hub-notification",
+            timestamp: dts,
+            vibrate: [1000, 1000, 1000],
+            renotify: true
+        });
         }
-        
-        button.style.backgroundColor = 'rgba(0, 0, 0, 1)';
-
-
-        loadPage(title);
-      }
-      
     });
-    
-    return button;
-  }
-  static createButton(title, function_) {
-    var content = document.getElementById("mortalhubcontent");
-    var button = document.createElement('button');
-    
-    button.textContent = title;
-    button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-    button.style.cssText = buttonCSS;
-    button.addEventListener('mouseover', function() {
-      button.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
-      button.style.textShadow = '1px 1px 3px rgba(255, 255, 255, 0.3)';
-    });
-    button.addEventListener('mouseout', function() {
-      button.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
-      button.style.textShadow = 'none';
-    });
-    button.addEventListener('click', function() {
-      function_();
-    });
-    content.appendChild(button);
-  }
-  static createToggle(title, onToggle) {
-    var content = document.getElementById("mortalhubcontent");
-    var toggleButton = document.createElement('button');
-    toggleButton.style.cssText = toggleButtonCSS;
-    
-    toggleButton.style.backgroundColor = "rgba(55, 55, 55, 0.8)";
-    var titleContainer = document.createElement('div');
-    titleContainer.style.cssText = 'display: flex; align-items: center; flex-grow: 1;';
-
-    var titleText = document.createElement('h2');
-    titleText.style.cssText = 'margin: 0; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; text-align: left;';
-
-    var statusText = document.createElement('h2');
-    statusText.style.cssText = 'margin: 0; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; text-align: right;';
-
-    titleText.textContent = title;
-
-    titleContainer.appendChild(titleText);
-
-    toggleButton.appendChild(titleContainer);
-    toggleButton.appendChild(statusText);
-
-    var toggleStatus = false;
-    updateButtonStyles();
-
-    toggleButton.addEventListener('click', function() {
-
-      toggleStatus = !toggleStatus;
-      updateButtonStyles();
-
-      onToggle(toggleStatus);
-    });
-
-    toggleButton.addEventListener('mouseover', function() {
-      toggleButton.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
-    });
-
-    toggleButton.addEventListener('mouseout', function() {
-      toggleButton.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
-    });
-
-    content.appendChild(toggleButton);
-
-    function updateButtonStyles() {
-      statusText.style.color = toggleStatus ? '#006400' : '#8B0000';
-
-      statusText.innerHTML = toggleStatus ? 'ON' : 'OFF';
-      
-      
-    }
-  }
-  static createDropdown(title, options, function_) {
-    var content = document.getElementById("mortalhubcontent");
-    var dropdown = document.createElement('div');
-    dropdown.className = 'dropdown';
-    var dropdownButton = document.createElement('button');
-    dropdownButton.textContent = title;
-    dropdownButton.style.cssText = dropdownButtonCSS;
-    
-    dropdown.appendChild(dropdownButton);
-    var dropdownContent = document.createElement('div');
-    dropdownContent.className = 'dropdown-content';
-    dropdownContent.style.cssText = dropdownContentCSS;
-    
-  var style = document.createElement('style');
-    style.innerHTML = `
-        ::-webkit-scrollbar {
-          display: none;
-        }
-      `;
-    document.head.appendChild(style);
-
-    for (var i = 0; i < options.length; i++) {
-      var option = document.createElement('a');
-      option.textContent = options[i];
-      option.style.cssText = dropdownOptionCSS;
-      
-      option.addEventListener('mouseover', function() {
-        this.backgroundColor = 'rgba(22, 22, 22, 0.8)';
-      });
-
-      option.addEventListener('mouseout', function() {
-        this.backgroundColor = 'rgba(55, 55, 55, 0.8)';
-      });
-    
-      option.addEventListener('click', function() {
-        function_(this.textContent);
-        hideDropdown();
-      });
-      dropdownContent.appendChild(option);
-    }
-    dropdown.appendChild(dropdownContent);
-    content.appendChild(dropdown);
-    dropdownButton.addEventListener('click', function() {
-      if (dropdownContent.style.display === 'none') {
-        showDropdown();
-      } else {
-        hideDropdown();
-      }
-    });
-    
-    dropdownButton.addEventListener('mouseover', function() {
-      dropdownButton.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
-    });
-
-    dropdownButton.addEventListener('mouseout', function() {
-      dropdownButton.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
-    });
-    
-
-
-    function showDropdown() {
-      dropdownContent.style.display = 'block';
-      dropdownContent.style.animation = 'slide-down 0.5s forwards';
-    }
-    function hideDropdown() {
-      dropdownContent.style.animation = 'slide-up 0.5s forwards';
-      setTimeout(function() {
-        dropdownContent.style.display = 'none';
-      }, 0);
-    }
-  }
-  static createInput(title, function_, removeafter) {
-    var removeafter = removeafter || false;
-    var content = document.getElementById("mortalhubcontent");
-    var input = document.createElement('input');
-    input.id = title;
-    if (removeafter === true) {
-      input.className = 'geometry';
-    };
-    input.type = "text";
-    input.placeholder = title;
-    input.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
-    input.style.cssText = inputCSS;
-    
-    input.addEventListener('keyup', function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        var text = input.value;
-        input.value = "";
-        if (removeafter === true) {
-          input.remove();
-        }
-        input.style.scrollTop = input.style.scrollHeight;
-        function_(text);
-      }
-    });
-
-    content.appendChild(input);
-  }
-  static createText(value) {
-    var content = document.getElementById("mortalhubcontent");
-    var text = document.createElement('h1');
-    text.textContent = value;
-    text.style.borderTop = value === 'Links' ? 'none' : '1px solid #666';
-    text.style.cssText = textCSS;
-    
-    content.appendChild(text);
-  }
-  static createConsoleBox() {
-    var content = document.getElementById("mortalhubcontent");
-    var text = document.createElement('div');
-    text.id = "mortalhubconsole";
-    text.textContent = "";
-    text.style.cssText =
-      'width: calc(100% - 40px);' + 
-      'height: calc(70%);' +
-      'padding: 10px;' + 
-      'background-color: rgba(0, 0, 0, 0.7);' +
-      'border: 1px solid white;' +
-      'color: white;' +
-      'font-size: 14px;' +
-      'font-family: \'Inter\', sans-serif;' +
-      'font-weight: bold;' +
-      'cursor: pointer;' +
-      'transition: background-color 0.2s ease-in-out;' +
-      'text-align: left;' + 
-      'border-radius: 10px;' + 
-      'margin-top: 20px;' + 
-      'margin-bottom: 0px;' +
-      'overflow-y: auto';
-
-    content.appendChild(text);
-  }
-  static createTextBox(text) {
-    var content = document.getElementById("mortalhubcontent");
-    var box = document.createElement('div');
-    box.innerHTML = text;
-    box.style.cssText = textboxCSS;
-
-    content.appendChild(box);
-  }
-  static createSlider(name, minValue, maxValue, callback) {
-    var content = document.getElementById("mortalhubcontent");
-    var sliderContainer = document.createElement('div');
-    sliderContainer.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin: 10px auto; width: 50%; padding: 10px 20px; background-color: rgba(55, 55, 55, 0.8); border: none; color: #fff; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; border-radius: 10px; transition: background-color 0.2s ease-in-out; outline: none; max-height: 39px; max-width:250px;';
-
-    var title = document.createElement('span');
-    title.textContent = name;
-    title.style.cssText = 'font-size: 14px; margin-bottom: 5px; margin-right: 5px;display: block;';
-
-    var slider = document.createElement('input');
-    slider.type = 'range';
-    slider.min = minValue;
-    slider.max = maxValue;
-    slider.value = (minValue + maxValue) / 2; 
-    slider.style.cssText = 'width: 100%;';
-
-    var valueDisplay = document.createElement('span');
-    valueDisplay.textContent = slider.value;
-    valueDisplay.style.cssText = 'display: inline-block; margin-left: 5px;';
-
-    slider.addEventListener('input', function() {
-      var newValue = parseFloat(slider.value);
-      valueDisplay.textContent = newValue;
-      callback(newValue);
-    });
-
-    sliderContainer.appendChild(title);
-    sliderContainer.appendChild(slider);
-    sliderContainer.appendChild(valueDisplay);
-    content.appendChild(sliderContainer);
   }
   static removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
   }
+  static drawPageWithElements(elements) {
+    const content = document.getElementById("mortalhubcontent");
+
+    elements.forEach(element => {
+        content.appendChild(element);
+    })
+    
+  }
 }
 
+class Components  { 
+    static stringInput(title, function_, removeafter) {
+        var removeafter = removeafter || false;
+        var content = document.getElementById("mortalhubcontent");
+        var input = document.createElement('input');
+        input.id = title;
+        if (removeafter === true) {
+          input.className = 'geometry';
+        };
+        input.type = "text";
+        input.placeholder = title;
+        input.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
+        input.style.cssText = inputCSS;
+        
+        input.addEventListener('keyup', function(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            var text = input.value;
+            input.value = "";
+            if (removeafter === true) {
+              input.remove();
+            }
+            input.style.scrollTop = input.style.scrollHeight;
+            function_(text);
+          }
+        });
+    
+        return input;
+    }
+    static textField(value) {
+        var content = document.getElementById("mortalhubcontent");
+        var text = document.createElement('h1');
+        text.textContent = value;
+        text.style.borderTop = value === 'Links' ? 'none' : '1px solid #666';
+        text.style.cssText = textCSS;
+        
+        return text;
+    }
+    static consoleWindow() {
+        var content = document.getElementById("mortalhubcontent");
+        var text = document.createElement('div');
+        text.id = "mortalhubconsole";
+        text.textContent = "";
+        text.style.cssText =
+          'width: calc(100% - 40px);' + 
+          'height: calc(70%);' +
+          'padding: 10px;' + 
+          'background-color: rgba(0, 0, 0, 0.7);' +
+          'border: 1px solid white;' +
+          'color: white;' +
+          'font-size: 14px;' +
+          'font-family: \'Inter\', sans-serif;' +
+          'font-weight: bold;' +
+          'cursor: pointer;' +
+          'transition: background-color 0.2s ease-in-out;' +
+          'text-align: left;' + 
+          'border-radius: 10px;' + 
+          'margin-top: 20px;' + 
+          'margin-bottom: 0px;' +
+          'overflow-y: auto';
+    
+        return text;
+    }
+    static textBox(text) {
+        var content = document.getElementById("mortalhubcontent");
+        var box = document.createElement('div');
+        box.innerHTML = text;
+        box.style.cssText = textboxCSS;
+    
+        return box;
+    }
+    static integerSlider(name, minValue, maxValue, callback) {
+        var content = document.getElementById("mortalhubcontent");
+        var sliderContainer = document.createElement('div');
+        sliderContainer.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin: 10px auto; width: 50%; padding: 10px 20px; background-color: rgba(55, 55, 55, 0.8); border: none; color: #fff; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; border-radius: 10px; transition: background-color 0.2s ease-in-out; outline: none; max-height: 39px; max-width:250px;';
+    
+        var title = document.createElement('span');
+        title.textContent = name;
+        title.style.cssText = 'font-size: 14px; margin-bottom: 5px; margin-right: 5px;display: block;';
+    
+        var slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = minValue;
+        slider.max = maxValue;
+        slider.value = (minValue + maxValue) / 2; 
+        slider.style.cssText = 'width: 100%;';
+    
+        var valueDisplay = document.createElement('span');
+        valueDisplay.textContent = slider.value;
+        valueDisplay.style.cssText = 'display: inline-block; margin-left: 5px;';
+    
+        slider.addEventListener('input', function() {
+          var newValue = parseFloat(slider.value);
+          valueDisplay.textContent = newValue;
+          callback(newValue);
+        });
+    
+        sliderContainer.appendChild(title);
+        sliderContainer.appendChild(slider);
+        sliderContainer.appendChild(valueDisplay);
 
+        return sliderContainer;
+    }
+    static sidebarTab(title) {
+        var button = document.createElement('button'); 
+        button.textContent = title; 
+        button.id = "mortal-hub-button-"+title;
+        button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
+        button.style.cssText = tabCSS;
+        
+        button.addEventListener('mouseover', function() { button.style.textDecoration = "underline"; button.style.paddingBottom = "2px"; });
+        button.addEventListener('mouseout', function() { if (localStorage.getItem('uiPage') !== title) { button.style.textDecoration = "none";button.style.paddingBottom = "0px";}});
+    
+        button.addEventListener('click', function() {
+    
+          if (title !== localStorage.getItem("uiPage")) {
+            var oldBtn = document.getElementById("mortal-hub-button-"+localStorage.getItem("uiPage"));
+    
+            if (oldBtn) {
+              oldBtn.style.textDecoration = "none";
+            }
+            
+            button.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+    
+    
+            loadPage(title);
+          }
+          
+        });
+        
+        return button;
+    }
+    static button(title, function_) {
+        var content = document.getElementById("mortalhubcontent");
+        var button = document.createElement('button');
+        
+        button.textContent = title;
+        button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
+        button.style.cssText = buttonCSS;
+        button.addEventListener('mouseover', function() {
+          button.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
+          button.style.textShadow = '1px 1px 3px rgba(255, 255, 255, 0.3)';
+        });
+        button.addEventListener('mouseout', function() {
+          button.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
+          button.style.textShadow = 'none';
+        });
+        button.addEventListener('click', function() {
+          function_();
+        });
+        return button;
+    }
+    static boolToggle(title, onToggle) {
+        var content = document.getElementById("mortalhubcontent");
+        var toggleButton = document.createElement('button');
+        toggleButton.style.cssText = toggleButtonCSS;
+        
+        toggleButton.style.backgroundColor = "rgba(55, 55, 55, 0.8)";
+        var titleContainer = document.createElement('div');
+        titleContainer.style.cssText = 'display: flex; align-items: center; flex-grow: 1;';
+    
+        var titleText = document.createElement('h2');
+        titleText.style.cssText = 'margin: 0; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; text-align: left;';
+    
+        var statusText = document.createElement('h2');
+        statusText.style.cssText = 'margin: 0; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; text-align: right;';
+    
+        titleText.textContent = title;
+    
+        titleContainer.appendChild(titleText);
+    
+        toggleButton.appendChild(titleContainer);
+        toggleButton.appendChild(statusText);
+    
+        var toggleStatus = false;
+        updateButtonStyles();
+    
+        toggleButton.addEventListener('click', function() {
+    
+          toggleStatus = !toggleStatus;
+          updateButtonStyles();
+    
+          onToggle(toggleStatus);
+        });
+    
+        toggleButton.addEventListener('mouseover', function() {
+          toggleButton.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
+        });
+    
+        toggleButton.addEventListener('mouseout', function() {
+          toggleButton.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
+        });
+    
+        
+    
+        function updateButtonStyles() {
+          statusText.style.color = toggleStatus ? '#006400' : '#8B0000';
+    
+          statusText.innerHTML = toggleStatus ? 'ON' : 'OFF';
+          
+          
+        }
+        return toggleButton;
+    }
+    static dropdownSelector(title, options, function_) {
+        var content = document.getElementById("mortalhubcontent");
+        var dropdown = document.createElement('div');
+        dropdown.className = 'dropdown';
+        var dropdownButton = document.createElement('button');
+        dropdownButton.textContent = title;
+        dropdownButton.style.cssText = dropdownButtonCSS;
+        
+        dropdown.appendChild(dropdownButton);
+        var dropdownContent = document.createElement('div');
+        dropdownContent.className = 'dropdown-content';
+        dropdownContent.style.cssText = dropdownContentCSS;
+        
+        var style = document.createElement('style');
+            style.innerHTML = `
+                ::-webkit-scrollbar {
+                display: none;
+                }
+            `;
+        document.head.appendChild(style);
+    
+        for (var i = 0; i < options.length; i++) {
+          var option = document.createElement('a');
+          option.textContent = options[i];
+          option.style.cssText = dropdownOptionCSS;
+          
+          option.addEventListener('mouseover', function() {
+            this.backgroundColor = 'rgba(22, 22, 22, 0.8)';
+          });
+    
+          option.addEventListener('mouseout', function() {
+            this.backgroundColor = 'rgba(55, 55, 55, 0.8)';
+          });
+        
+          option.addEventListener('click', function() {
+            function_(this.textContent);
+            hideDropdown();
+          });
+          dropdownContent.appendChild(option);
+        }
+        dropdown.appendChild(dropdownContent);
+
+        dropdownButton.addEventListener('click', function() {
+          if (dropdownContent.style.display === 'none') {
+            showDropdown();
+          } else {
+            hideDropdown();
+          }
+        });
+        
+        dropdownButton.addEventListener('mouseover', function() {
+          dropdownButton.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
+        });
+    
+        dropdownButton.addEventListener('mouseout', function() {
+          dropdownButton.style.backgroundColor = 'rgba(55, 55, 55, 0.8)';
+        });
+        
+    
+    
+        function showDropdown() {
+          dropdownContent.style.display = 'block';
+          dropdownContent.style.animation = 'slide-down 0.5s forwards';
+        }
+        function hideDropdown() {
+          dropdownContent.style.animation = 'slide-up 0.5s forwards';
+          setTimeout(function() {
+            dropdownContent.style.display = 'none';
+          }, 0);
+        }
+
+        return dropdown;
+    }
+}
 /*
      Page/Tab Loading Emulation 
 */
@@ -369,127 +382,134 @@ function loadPage(title) {
 
   switch (title) {
     case "Info":
-      Utils.createText("‎ ‎ ");
-      Utils.createText("(SECURLY SCRIPTS NOT FOR USE IN SCHOOL ENVIRONMENTS)");
-      Utils.createText("Public Project Made by: bznel#0");
+      Utils.drawPageWithElements([
+        Components.textField("‎ ‎ "),
+        Components.textField("(SECURLY SCRIPTS NOT FOR USE IN SCHOOL ENVIRONMENTS)"),
+        Components.textField("Public Project Made by: bznel#0"),
+        
+        Components.textField("‎ ‎ "),
+        Components.textField("Scripts"),
+        
+        Components.textBox("- History Flooder (spams browser history with entries)<br>- Screen Hider (hides your screen from securly)<br>- Disable Tab Closing (bypasses securly's tab closing)<br>- Tab Disguise (makes your tab look like google drive)<br>- Barrel Roll (animates your page to spin in a circle)<br>- Show Text Alert (simple script to show an alert)<br>- Page Editing (allows you to edit any text on your page)"),
+        
+        Components.textField("‎ ‎ "),
+        Components.textField("Console"),
+        Components.textBox("- Console box displays logs, errors, and warnings<br>- Command input allows you to run any javascript commands"),
+      ]);
       
-      Utils.createText("‎ ‎ ");
-      Utils.createText("Scripts");
-      
-      Utils.createTextBox("- History Flooder (spams browser history with entries)<br>- Screen Hider (hides your screen from securly)<br>- Disable Tab Closing (bypasses securly's tab closing)<br>- Tab Disguise (makes your tab look like google drive)<br>- Barrel Roll (animates your page to spin in a circle)<br>- Show Text Alert (simple script to show an alert)<br>- Page Editing (allows you to edit any text on your page)");
-      
-      Utils.createText("‎ ‎ ");
-      Utils.createText("Console");
-      Utils.createTextBox("- Console box displays logs, errors, and warnings<br>- Command input allows you to run any javascript commands");
       break;
     case "Scripts":
-      Utils.createText("‎ ‎ ");
-      Utils.createText('History Flooder');
-      Utils.createInput('Entries (ex: 50)', function(num) {
-        var done = false;
-        for (var i = 1; i <= num; i++) {
-          window.history.pushState(0, 0, i == num ? window.location.href : i);
-          if (i == num) {
-            done = true
-          }
-        }
+      Utils.drawPageWithElements([
+        Components.textField("‎ ‎ "),
+        Components.textField('History Flooder'),
+        Components.stringInput('Entries (ex: 50)', function(num) {
+            var done = false;
+            for (var i = 1; i <= num; i++) {
+                window.history.pushState(0, 0, i == num ? window.location.href : i);
+            if (i == num) {
+                done = true
+            }
+            }
 
-        if (done === true) {
-          Utils.showAlert("History Flooding Successful! (" + num.toString() + " Entries)")
-        }
-      });
+            if (done === true) {
+                Utils.showAlert("History Flooding Successful! (" + num.toString() + " Entries)")
+            }
+        }),
+        Components.textField("‎ ‎ "),
+        Components.textField('Securly (against school terms!)'),
+        Components.boolToggle("Hide Screen", function(toggle) {
+            if (toggle === true) {
+            localStorage.setItem('mortal-hub-cloak', true);
+            } else {
+            localStorage.setItem('mortal-hub-cloak', false);
+            }
+        }),
+        Components.button("Disable Securly Tab Closing", function() {
+            Utils.showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
+            window.onbeforeunload = function() {
+                return 1;
+            };
+        }),
+        Components.button("Tab Disguise", function() {
+            var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+            link.type = 'image/x-icon'; link.rel = 'shortcut icon';
+            link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';
+            document.title = 'My Drive - Google Drive';
+            document.getElementsByTagName('head')[0].appendChild(link);
 
-      Utils.createText("‎ ‎ ");
-      Utils.createText('Securly (against school terms!)');
-      Utils.createToggle("Hide Screen", function(toggle) {
-        if (toggle === true) {
-          localStorage.setItem('mortal-hub-cloak', true);
-        } else {
-          localStorage.setItem('mortal-hub-cloak', false);
-        }
-      });
+            Utils.showAlert('Tab is now cloaked.')
+        }),
 
-      Utils.createButton("Disable Securly Tab Closing", function() {
-        Utils.showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
-        window.onbeforeunload = function() {
-          return 1;
-        };
-      });
+        Components.textField("‎ ‎ "),
+        Components.textField('Fun'),
 
-      Utils.createButton("Tab Disguise", function() {
-        var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        link.type = 'image/x-icon'; link.rel = 'shortcut icon';
-        link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';
-        document.title = 'My Drive - Google Drive';
-        document.getElementsByTagName('head')[0].appendChild(link);
-
-        Utils.showAlert('Tab is now cloaked.')
-      });
-
-
-
-      Utils.createText("‎ ‎ ");
-      Utils.createText('Fun');
-
-      isAnimating = false;
-      Utils.createButton("Spin Page (Barrel Roll)", function() {
-        if (!isAnimating) {
-          var css = "\n@keyframes roll {\n  100%{\n    transform:rotate(360deg)\n  }\n}\nbody {\n  animation-name: roll;\n  animation-duration: 4s;\n  animation-iteration-count: 1;\n}\n";
-          style = document.createElement("style");
-          style.innerHTML = css;
-          document.head.appendChild(style);
-          isAnimating = true;
-          setTimeout(function() {
-            document.head.removeChild(style);
-            isAnimating = false;
-          }, 4000);
-        }
-      });
+        Components.button("Spin Page (Barrel Roll)", function() {
+            if (!barrelRollAnimating) {
+            var css = "\n@keyframes roll {\n  100%{\n    transform:rotate(360deg)\n  }\n}\nbody {\n  animation-name: roll;\n  animation-duration: 4s;\n  animation-iteration-count: 1;\n}\n";
+            style = document.createElement("style");
+            style.innerHTML = css;
+            document.head.appendChild(style);
+            barrelRollAnimating = true;
+            setTimeout(function() {
+                document.head.removeChild(style);
+                barrelRollAnimating = false;
+            }, 4000);
+            }
+        }),
 
 
+        Components.stringInput("Show a text alert (ex: hello)", function(text) {
+            alert(text);
+        }),
 
+        Components.textField("‎ ‎ "),
+        Components.textField('Toggles'),
+        Components.boolToggle("Page Editing", function(toggle) {
+            if (toggle === true) {
+            document.body.contentEditable = 'true'; document.designMode = 'on';
+            } else {
+            document.body.contentEditable = 'false'; document.designMode = 'off';
+            }
+        }),
 
-      Utils.createInput("Show a text alert (ex: hello)", function(text) {
-        alert(text);
-      });
-      Utils.createText("‎ ‎ ");
-      Utils.createText('Toggles');
-      Utils.createToggle("Page Editing", function(toggle) {
-        if (toggle === true) {
-          document.body.contentEditable = 'true'; document.designMode = 'on';
-        } else {
-          document.body.contentEditable = 'false'; document.designMode = 'off';
-        }
-      });
+      ]);
+
+      
       break;
     case "Sounds":
-      Utils.createText("‎ ‎ ");
-      Utils.createButton("Vine Boom", function() {
-        var audio = new Audio("https://bznel.github.io/Mortal-Hub/Vine-boom-sound-effect.mp3");
-        audio.play();
-      });
+      Utils.drawPageWithElements([
+        Components.textField("‎ ‎ "),
+        Components.button("Vine Boom", function() {
+            var audio = new Audio("https://bznel.github.io/Mortal-Hub/Vine-boom-sound-effect.mp3");
+            audio.play();
+        }),
+      ]);
+      
       break;
     case "Console":
-      Utils.createConsoleBox();
+      Utils.drawPageWithElements([
+        Components.consoleWindow(),
 		
-      Utils.createInput("Type command", function(text) {
-          try{
-            eval(text);
+        Components.stringInput("Type command", function(text) {
+            try{
+              eval(text);
+              
+            }catch(e) {
             
-          }catch(e) {
-          
-            if (e instanceof Error) {
-              console.error(e);
-            } else if (e instanceof Warning) {
-              console.warn(e);
-            } else {
-              console.log(e);
+              if (e instanceof Error) {
+                console.error(e);
+              } else if (e instanceof Warning) {
+                console.warn(e);
+              } else {
+                console.log(e);
+              }
+              
+              
             }
-            
-            
-          }
-
-      });
+  
+        }),
+      ]);
+      
 
       break;
   }
@@ -528,7 +548,7 @@ function main(savedPage = null) {
   ];
 
   for (var i = 0; i < tabList.length; i++) {
-    tabList[i] = Utils.createTab(tabList[i]);
+    tabList[i] = Components.sidebarTab(tabList[i]);
     tabs.appendChild(tabList[i])
   };
 
@@ -638,7 +658,6 @@ function startPrompt() {
   document.body.appendChild(script);
 
   script.onload = function() {
-    if (localStorage.getItem("mortalSessionActive") !== 'true') {
 
       var blackGradient = document.createElement("div"); 
       blackGradient.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; z-index: 999;"; 
@@ -692,17 +711,12 @@ function startPrompt() {
         setTimeout(function() {
           document.body.removeChild(overlay);
           document.body.style.cssText = "";
-          localStorage.setItem('mortalSessionActive', true);
           overlay.remove();
           blackGradient.remove();
           particlesContainer.remove();
           main();
         }, 500);
       });
-    } else {
-        var savedPage = localStorage.getItem("uiPage");
-        main(savedPage);
-    }
   }
   
 }
@@ -715,8 +729,7 @@ window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
   
     localStorage.removeItem('uiPage');
-  
-    localStorage.setItem("mortalSessionActive", false);
+
     localStorage.setItem('mortal-hub-cloak', false);
   
   
