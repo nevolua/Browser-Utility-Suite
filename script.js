@@ -61,7 +61,8 @@ class Utils {
             tag: "mortal-hub-notification",
             timestamp: dts,
             vibrate: [1000, 1000, 1000],
-            renotify: true
+            renotify: true,
+            requireInteraction: true,
         });
         }
     });
@@ -758,7 +759,7 @@ window.addEventListener('beforeunload', function (e) {
       window.addEventListener(handler, stopPropagation, true);
     }
 
-    Utils.showAlert("Page unloaded, successfully uninitialized elements.");
+    Utils.showAlert("Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
 
     throw '';
 });
@@ -767,13 +768,49 @@ window.addEventListener('beforeunload', function (e) {
 /* 
     Start script 
 */
-try {
-  try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
 
-  Utils.showAlert("Loaded! Right shift to toggle UI");
-  startPrompt();
-} catch (error) {
-  if (error.message !== "Exit") {
-    throw error;
+(async function() {
+	const response = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub`);
+	const repoData = await response.json();
+	const lastUpdateUTC = new Date(repoData.pushed_at);
+	
+	
+	const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const currentTimeUTC = new Date();
+	const timeDifferenceMinutes = (currentTimeUTC - lastUpdateUTC) / (60 * 1000);
+	
+	const timeDifferenceString = timeDifferenceMinutes < 60
+	          ? `${Math.floor(timeDifferenceMinutes)} minutes ago`
+	          : `${Math.floor(timeDifferenceMinutes / 60)} hours ago`;
+	
+	const lastUpdateTime = lastUpdateUTC.toLocaleString('en-US', {
+	          timeZone: userTimeZone,
+	          month: 'long',
+	          day: 'numeric',
+	          hour: 'numeric',
+	          minute: 'numeric',
+	          timeZoneName: 'short',
+	});
+
+  const commitsResponse = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub/commits`);
+  const commitsData = await commitsResponse.json();
+
+  console.log(commitsData.length);
+	
+  try {
+    try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
+  
+    Utils.showAlert(`Loaded! Right shift to toggle UI\nUpdated: ${lastUpdateTime} (${timeDifferenceString})`);
+
+    setTimeout(function() {
+      startPrompt();
+    }, 2000);
+    
+  } catch (error) {
+    if (error.message !== "Exit") {
+      throw error;
+    }
   }
-}
+
+})()
+
