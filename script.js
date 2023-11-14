@@ -766,6 +766,9 @@ window.addEventListener('beforeunload', function (e) {
     }
     fakewindow.close();
 
+    try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
+
+
     Utils.showAlert("Mortal Hub", "Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
 
     throw '';
