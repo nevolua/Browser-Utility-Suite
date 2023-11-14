@@ -326,7 +326,7 @@ class Components  {
           dropdownContent.appendChild(option);
         }
         dropdown.appendChild(dropdownContent);
-
+        content.appendChild(dropdown);
         dropdownButton.addEventListener('click', function() {
           if (dropdownContent.style.display === 'none') {
             showDropdown();
@@ -356,7 +356,7 @@ class Components  {
           }, 0);
         }
 
-        return dropdown;
+        return dropDown;
     }
 }
 /*
@@ -424,12 +424,14 @@ function loadPage(title) {
             localStorage.setItem('mortal-hub-cloak', false);
             }
         }),
+
         Components.button("Disable Securly Tab Closing", function() {
             Utils.showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
             window.onbeforeunload = function() {
                 return 1;
             };
         }),
+
         Components.button("Tab Disguise", function() {
             var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
             link.type = 'image/x-icon'; link.rel = 'shortcut icon';
@@ -658,6 +660,7 @@ function startPrompt() {
   document.body.appendChild(script);
 
   script.onload = function() {
+    if (localStorage.getItem("mortalSessionActive") !== 'true') {
 
       var blackGradient = document.createElement("div"); 
       blackGradient.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; z-index: 999;"; 
@@ -711,12 +714,17 @@ function startPrompt() {
         setTimeout(function() {
           document.body.removeChild(overlay);
           document.body.style.cssText = "";
+          localStorage.setItem('mortalSessionActive', true);
           overlay.remove();
           blackGradient.remove();
           particlesContainer.remove();
           main();
         }, 500);
       });
+    } else {
+        var savedPage = localStorage.getItem("uiPage");
+        main(savedPage);
+    }
   }
   
 }
@@ -729,7 +737,8 @@ window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
   
     localStorage.removeItem('uiPage');
-
+  
+    localStorage.setItem("mortalSessionActive", false);
     localStorage.setItem('mortal-hub-cloak', false);
   
   
