@@ -51,20 +51,29 @@ class Utils {
 
     requestAnimationFrame(animate);
   }
-  static showAlert(title = "Mortal Hub", text) {
-    Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-        const dts = Math.floor(Date.now());
 
-        new Notification(title, {
+  static showAlert(title = "", text) {
+    return new Promise((resolve, reject) => {
+      (title == "") ? (title = "Mortal Hub") : (title = title);
+
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          const dts = Math.floor(Date.now());
+
+          var notification = new Notification(title, {
             body: text,
             tag: "mortal-hub-notification",
             timestamp: dts,
             vibrate: [1000, 1000, 1000],
             renotify: true,
-            requireInteraction: true,
-        });
+            requireInteraction: false,
+          });
+
+          resolve(notification);
+        } else {
+          reject("Notification permission not granted");
         }
+      });
     });
   }
   static removeAllChildNodes(parent) {
@@ -85,7 +94,6 @@ class Utils {
 class Components  { 
     static stringInput(title, function_, removeafter) {
         var removeafter = removeafter || false;
-        var content = document.getElementById("mortalhubcontent");
         var input = document.createElement('input');
         input.id = title;
         if (removeafter === true) {
@@ -112,7 +120,6 @@ class Components  {
         return input;
     }
     static textField(value) {
-        var content = document.getElementById("mortalhubcontent");
         var text = document.createElement('h1');
         text.textContent = value;
         text.style.borderTop = value === 'Links' ? 'none' : '1px solid #666';
@@ -121,7 +128,6 @@ class Components  {
         return text;
     }
     static consoleWindow() {
-        var content = document.getElementById("mortalhubcontent");
         var text = document.createElement('div');
         text.id = "mortalhubconsole";
         text.textContent = "";
@@ -146,7 +152,6 @@ class Components  {
         return text;
     }
     static textBox(text) {
-        var content = document.getElementById("mortalhubcontent");
         var box = document.createElement('div');
         box.innerHTML = text;
         box.style.cssText = textboxCSS;
@@ -154,7 +159,6 @@ class Components  {
         return box;
     }
     static integerSlider(name, minValue, maxValue, callback) {
-        var content = document.getElementById("mortalhubcontent");
         var sliderContainer = document.createElement('div');
         sliderContainer.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin: 10px auto; width: 50%; padding: 10px 20px; background-color: rgba(55, 55, 55, 0.8); border: none; color: #fff; font-size: 14px; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; border-radius: 10px; transition: background-color 0.2s ease-in-out; outline: none; max-height: 39px; max-width:250px;';
     
@@ -234,7 +238,7 @@ class Components  {
         });
         return button;
     }
-    static boolToggle(title, onToggle) {
+    static boolToggle(title, onToggle, startingStatus) {
         var content = document.getElementById("mortalhubcontent");
         var toggleButton = document.createElement('button');
         toggleButton.style.cssText = toggleButtonCSS;
@@ -256,7 +260,7 @@ class Components  {
         toggleButton.appendChild(titleContainer);
         toggleButton.appendChild(statusText);
     
-        var toggleStatus = false;
+        var toggleStatus = startingStatus;
         updateButtonStyles();
     
         toggleButton.addEventListener('click', function() {
@@ -420,11 +424,11 @@ function loadPage(title) {
         Components.textField('Securly (against school terms!)'),
         Components.boolToggle("Hide Screen", function(toggle) {
             if (toggle === true) {
-            localStorage.setItem('mortal-hub-cloak', true);
+              localStorage.setItem('mortal-hub-cloak', true);
             } else {
-            localStorage.setItem('mortal-hub-cloak', false);
+              localStorage.setItem('mortal-hub-cloak', false);
             }
-        }),
+        }, localStorage.getItem('mortal-hub-cloak')),
 
         Components.button("Disable Securly Tab Closing", function() {
             Utils.showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
@@ -469,11 +473,13 @@ function loadPage(title) {
         Components.textField('Toggles'),
         Components.boolToggle("Page Editing", function(toggle) {
             if (toggle === true) {
-            document.body.contentEditable = 'true'; document.designMode = 'on';
+              localStorage.setItem('mortal-hub-editing', true);
+              document.body.contentEditable = 'true'; document.designMode = 'on';
             } else {
-            document.body.contentEditable = 'false'; document.designMode = 'off';
+              localStorage.setItem('mortal-hub-editing', false);
+              document.body.contentEditable = 'false'; document.designMode = 'off';
             }
-        }),
+        }, localStorage.getItem('mortal-hub-editing')),
 
       ]);
 
@@ -758,8 +764,9 @@ window.addEventListener('beforeunload', function (e) {
     for (var handler of handlers) {
       window.addEventListener(handler, stopPropagation, true);
     }
+    fakewindow.close();
 
-    Utils.showAlert("Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
+    Utils.showAlert("Mortal Hub", "Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
 
     throw '';
 });
@@ -812,12 +819,15 @@ window.addEventListener('beforeunload', function (e) {
 
   try {
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
-  
-    Utils.showAlert(`Mortal Hub Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
+    
+    localStorage.setItem('mortal-hub-cloak', false);
+    localStorage.setItem('mortal-hub-editing', false);
 
+    Utils.showAlert(`Mortal Hub Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
+    
     setTimeout(function() {
       startPrompt();
-    }, 2000);
+    }, 100);
     
   } catch (error) {
     if (error.message !== "Exit") {
@@ -826,4 +836,3 @@ window.addEventListener('beforeunload', function (e) {
   }
 
 })()
-
