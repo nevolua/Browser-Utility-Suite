@@ -20,9 +20,9 @@ const messageTextCSS     = "font-size: 16px; text-align: center; margin-bottom: 
 
 const liabilityMessage   = "This is public software that has been developed to test the vulnerabilities of computer monitoring software within a personal environment. This script is not intended for use on any school device or network. The developer claims no responsibility for any consequences that may arise from doing so.<br><br>By using this software, you agree to abide by all applicable terms and rules."; 
 
-let fakewindow = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
+let fakewindow           = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
 
-var barrelRollAnimating = false;
+var barrelRollAnimating  = false;
 
 /*
     Utility Functions 
@@ -775,7 +775,6 @@ window.addEventListener('beforeunload', function (e) {
 /* 
     Start script 
 */
-
 (async function() {
 	const response = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub`);
 	const repoData = await response.json();
@@ -819,7 +818,7 @@ window.addEventListener('beforeunload', function (e) {
 
   try {
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
-    
+
     localStorage.setItem('mortal-hub-cloak', false);
     localStorage.setItem('mortal-hub-editing', false);
 
