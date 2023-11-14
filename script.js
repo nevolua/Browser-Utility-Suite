@@ -51,12 +51,12 @@ class Utils {
 
     requestAnimationFrame(animate);
   }
-  static showAlert(text) {
+  static showAlert(title = "Mortal Hub", text) {
     Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
         const dts = Math.floor(Date.now());
 
-        new Notification('Mortal Hub', {
+        new Notification(title, {
             body: text,
             tag: "mortal-hub-notification",
             timestamp: dts,
@@ -779,28 +779,41 @@ window.addEventListener('beforeunload', function (e) {
 	const currentTimeUTC = new Date();
 	const timeDifferenceMinutes = (currentTimeUTC - lastUpdateUTC) / (60 * 1000);
 	
-	const timeDifferenceString = timeDifferenceMinutes < 60
-	          ? `${Math.floor(timeDifferenceMinutes)} minutes ago`
-	          : `${Math.floor(timeDifferenceMinutes / 60)} hours ago`;
+  const timeDifferenceString = timeDifferenceMinutes < 60
+      ? `${Math.floor(timeDifferenceMinutes)} mins ago`
+      : timeDifferenceMinutes < 1440
+      ? `${Math.floor(timeDifferenceMinutes / 60)} hrs ago`
+      : timeDifferenceMinutes < 10080
+      ? `${Math.floor(timeDifferenceMinutes / 1440)} days ago`
+      : timeDifferenceMinutes < 40320
+      ? `${Math.floor(timeDifferenceMinutes / 10080)} weeks ago`
+      : `${Math.floor(timeDifferenceMinutes / 40320)} months ago`;
 	
 	const lastUpdateTime = lastUpdateUTC.toLocaleString('en-US', {
 	          timeZone: userTimeZone,
-	          month: 'long',
+	          month: 'short',
 	          day: 'numeric',
 	          hour: 'numeric',
 	          minute: 'numeric',
 	          timeZoneName: 'short',
 	});
 
-  const commitsResponse = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub/commits`);
-  const commitsData = await commitsResponse.json();
+  const ua = await navigator.userAgentData
+    .getHighEntropyValues([
+      "architecture",
+      "model",
+      "platform",
+      "platformVersion",
+      "fullVersionList",
+  ]);
+   
+  const Browser = `${(navigator.userAgentData.brands)[navigator.userAgentData.brands.length-1].brand} v${(navigator.userAgentData.brands)[navigator.userAgentData.brands.length-1].version}`;
+  const PlatformVersion = ua.platformVersion;
 
-  console.log(commitsData.length);
-	
   try {
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
   
-    Utils.showAlert(`Loaded! Right shift to toggle UI\nUpdated: ${lastUpdateTime} (${timeDifferenceString})`);
+    Utils.showAlert(`Mortal Hub Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
 
     setTimeout(function() {
       startPrompt();
