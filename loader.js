@@ -21,7 +21,7 @@ javascript:(function() {
         titleText.innerHTML = "Error";
         var messageText = document.createElement("p");
         messageText.style.cssText = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
-        messageText.innerHTML = `An error occurred when loading the script. Please try again on another site.`;
+        messageText.innerHTML = `An error occurred when loading the script. Try again on another site.`;
         var okButton = document.createElement("button");
         okButton.style.cssText = "display: block; margin: auto; padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease;width: 100%;";
         okButton.innerHTML = "OK";
