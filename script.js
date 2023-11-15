@@ -290,6 +290,15 @@ class Components  {
           
           
         }
+
+        startingStatus ? (function(){
+          statusText.style.color = '#006400';
+          statusText.innerHTML = 'ON';
+        }) : (function(){
+          statusText.style.color = '#8B0000';
+          statusText.innerHTML = 'OFF';
+        }) 
+        
         return toggleButton;
     }
     static dropdownSelector(title, options, function_) {
