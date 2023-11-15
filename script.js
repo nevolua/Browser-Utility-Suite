@@ -11,7 +11,7 @@ const inputCSS           = 'display:block;margin:10px auto;width:50%;padding:10p
 const textCSS            = 'width:100%;padding-left:0px;background-color:rgba(22, 22, 22, 0);border:none;color:#fff;font-size:14px;font-family:\'Inter\', sans-serif;font-weight:bold;cursor:pointer;transition:background-color 0.2s ease-in-out;text-align:center; max-height: 50px; margin-top: 0px; border-top-left-radius: 0px;';
 const textboxCSS         = 'width: calc(100% - 40px);' + 'height: auto;' +'padding: 10px;' + 'background-color: rgba(0, 0, 0, 0.7);' +'border: 1px solid white;' +'color: white;' +'font-size: 14px;' +'font-family: \'Inter\', sans-serif;' +'font-weight: bold;' +'cursor: pointer;' +'transition: background-color 0.2s ease-in-out;' +'text-align: left;' + 'border-radius: 10px;' + 'margin-top: 20px;' + 'margin-bottom: 0px;'; 
 const okButtonCSS        = "display: block;  padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease; width: 100%; opacity: 0; pointer-events: none; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-top: 3%;";
-const uiCSS              = 'width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999; border-right: none; border-left: none; user-select: none; animation: gradientAnimation 5s infinite linear; background: linear-gradient(45deg, #111, #800080);background-size: 200% 200%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);';
+const uiCSS              = 'width: 600px; height: 300px; background-color: rgba(33, 33, 33, 0.5); border-radius: 10px; position: fixed; top: 271px; left: 430px; transform: translate(-50%, -50%); font-family: Arial, sans-serif; z-index: 99999; border-right: none; border-left: none; user-select: none; animation: gradientAnimation 5s infinite linear; background: linear-gradient(45deg, #111, #800080);background-size: 200% 200%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); opacity: 0;';
 const tabsCSS            = 'width:100px;height:300px;background:rgba(0,0,0, 1);border-radius:10px;position:absolute;top:50%;left:0;transform:translateY(-50%); text-align: center;border-bottom-right-radius: 0px;border-right: 1px solid white;';
 const contentCSS         = 'width:500px;height:300px;background-color:black;border-radius:10px 0px 10px 0px;position:absolute;top:50%;right:0;transform:translateY(-50%);overflow-y:scroll;max-height: 300px;text-align:center;border-top:none; background-size: 200% 200%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);border-top-left-radius: 0px;';
 const topbarCSS          = 'height: 20px; background-color: black; position: absolute; top: -17px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px;border-bottom: 5px solid white;';
@@ -31,6 +31,18 @@ var osDtc = false; /* Whether or not a forbidden OS was used to run the script (
 */
 
 class Utils {
+  static setupLocalStorage() {
+    localStorage.setItem('mortal-hub-cloak', false);
+    localStorage.setItem('mortal-hub-editing', false);
+  }
+
+  static cleanLocalStorage() {
+    localStorage.removeItem('uiPage');
+    localStorage.setItem("mortalSessionActive", false);
+    localStorage.setItem('mortal-hub-cloak', false);
+    localStorage.setItem('mortal-hub-editing', false);
+  }
+
   static fixHandlers() {
     var handlers = ['copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
   
@@ -570,7 +582,6 @@ function main(savedPage = null) {
 
   var tabs = document.createElement('div');
   tabs.style.cssText = tabsCSS;
-
   var tabList = [
     'Info',
     'Scripts',
@@ -625,7 +636,6 @@ function main(savedPage = null) {
   ui.appendChild(content);
   content.appendChild(particlesContainer);
 
-  ui.style.opacity = 0;
   document.body.appendChild(ui);
   Utils.fadeIn(ui, 500);
 
@@ -638,21 +648,12 @@ function main(savedPage = null) {
     loadPage('Info');
   }
 
-	function monitoringLoop() {
-    if (document.hasFocus() && localStorage.getItem('mortal-hub-cloak') === "true") {
-      fakewindow.focus();
-    }
-    requestAnimationFrame(monitoringLoop);
-  }
-  
-  monitoringLoop();
-	
-
 
 	var consoleContent = [];
 
 	['log', 'warn', 'error', 'info', 'debug', 'trace'].forEach(methodName => {
 					var originalMethod = console[methodName];
+
 					console[methodName] = function(...args) {
 							originalMethod.apply(console, args);
 
@@ -664,16 +665,20 @@ function main(savedPage = null) {
 					};
   });
 
-	function consoleLoop() {
-			if (localStorage.getItem('uiPage') === "Console") {
-					var consoleContentText = consoleContent.join("<br>");
-					document.getElementById('mortalhubconsole').innerHTML = consoleContentText;
-			}
+  function mainLoop(){
+      if (localStorage.getItem('uiPage') === "Console") {
+        var consoleContentText = consoleContent.join("<br>");
+        document.getElementById('mortalhubconsole').innerHTML = consoleContentText;
+      }
 
-			requestAnimationFrame(consoleLoop);
-	}
+      if (document.hasFocus() && localStorage.getItem('mortal-hub-cloak') === "true") {
+        fakewindow.focus();
+      }
 
-	consoleLoop();	
+      requestAnimationFrame(mainLoop);
+  }
+
+  mainLoop();
 
 }
 
@@ -767,19 +772,13 @@ window.addEventListener('beforeunload', function (e) {
     if (osDtc){return;}
 
     e.preventDefault();
-  
-    localStorage.removeItem('uiPage');
-  
-    localStorage.setItem("mortalSessionActive", false);
-    localStorage.setItem('mortal-hub-cloak', false);
-  
 
     Utils.fixHandlers();
+    Utils.cleanLocalStorage();
 
     fakewindow.close();
 
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
-
 
     Utils.showAlert("Mortal Hub", "Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
 
@@ -792,14 +791,12 @@ window.addEventListener('beforeunload', function (e) {
 */
 (async function() {
   if (!navigator.appVersion.includes("CrOS")) {
-    localStorage.removeItem('uiPage');
-  
-    localStorage.setItem("mortalSessionActive", false);
-    localStorage.setItem('mortal-hub-cloak', false);
 
     Utils.fixHandlers();
+    Utils.cleanLocalStorage();
 
     fakewindow.close();
+
     Utils.showAlert("Mortal Hub - Incompatible OS", "This script will not run on this device.");
 
     osDtc = true;
@@ -849,8 +846,7 @@ window.addEventListener('beforeunload', function (e) {
   try {
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
 
-    localStorage.setItem('mortal-hub-cloak', false);
-    localStorage.setItem('mortal-hub-editing', false);
+    Utils.setupLocalStorage();
 
     Utils.showAlert(`Mortal Hub Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
     
