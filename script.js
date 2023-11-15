@@ -262,7 +262,7 @@ class Components  {
         toggleButton.appendChild(titleContainer);
         toggleButton.appendChild(statusText);
 
-        console.log(`Startingstatus: ${startingStatus}`);
+        alert(`Startingstatus: ${startingStatus}`);
         var toggleStatus = startingStatus;
     
         toggleButton.addEventListener('click', function() {
