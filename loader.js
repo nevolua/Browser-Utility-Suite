@@ -6,12 +6,12 @@ javascript:(function() {
 
     var script = document.createElement('script');
     script.src = scriptUrl;
-    script.onerror = function() {
-      showErrorOverlay();
+    script.onerror = function(err) {
+      showErrorOverlay(err);
     };
     document.body.appendChild(script);
 
-    function showErrorOverlay() {
+    function showErrorOverlay(err) {
         var overlay = document.createElement("div");
         overlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 9999;";
         var alertBox = document.createElement("div");
@@ -21,7 +21,7 @@ javascript:(function() {
         titleText.innerHTML = "Error";
         var messageText = document.createElement("p");
         messageText.style.cssText = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
-        messageText.innerHTML = "The script doesn't have permission to load on this site. (XSS is blocked)";
+        messageText.innerHTML = `The script doesn't have permission to load on this site. (${err})`;
         var okButton = document.createElement("button");
         okButton.style.cssText = "display: block; margin: auto; padding: 10px 20px; background-color: #333; color: #fff; border: 2px solid #333; border-radius: 30px; font-size: 16px; font-weight: 500; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.3s ease;width: 100%;";
         okButton.innerHTML = "OK";
