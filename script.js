@@ -24,6 +24,8 @@ let fakewindow           = window.open("about:blank", "", "width=1,height=1, top
 
 var barrelRollAnimating  = false;
 
+var osDtc = false; /* Whether or not a forbidden OS was used to run the script (to ignore a reload and not notify user of script being unloaded) */ 
+
 /*
     Utility Functions 
 */
@@ -741,6 +743,8 @@ function startPrompt() {
     Handle Page Unloads
 */
 window.addEventListener('beforeunload', function (e) {
+    if (osDtc){return;}
+
     e.preventDefault();
   
     localStorage.removeItem('uiPage');
@@ -764,6 +768,7 @@ window.addEventListener('beforeunload', function (e) {
     for (var handler of handlers) {
       window.addEventListener(handler, stopPropagation, true);
     }
+
     fakewindow.close();
 
     try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
@@ -779,6 +784,25 @@ window.addEventListener('beforeunload', function (e) {
     Start script 
 */
 (async function() {
+  if (navigator.appVersion.includes("Windows")) {
+    localStorage.removeItem('uiPage');
+  
+    localStorage.setItem("mortalSessionActive", false);
+    localStorage.setItem('mortal-hub-cloak', false);
+
+    var handlers = ['copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
+  
+
+    for (var handler of handlers) {
+      window.addEventListener(handler, function(e){e.stopPropagation()}, true);
+    }
+    fakewindow.close();
+    Utils.showAlert("Mortal Hub", "Only use this on chromebooks!");
+
+    osDtc = true;
+    throw '';
+  };
+
 	const response = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub`);
 	const repoData = await response.json();
 	const lastUpdateUTC = new Date(repoData.pushed_at);
