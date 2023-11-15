@@ -261,9 +261,9 @@ class Components  {
     
         toggleButton.appendChild(titleContainer);
         toggleButton.appendChild(statusText);
-    
+
+        console.log(`Startingstatus: ${startingStatus}`);
         var toggleStatus = startingStatus;
-        updateButtonStyles();
     
         toggleButton.addEventListener('click', function() {
     
@@ -287,18 +287,9 @@ class Components  {
           statusText.style.color = toggleStatus ? '#006400' : '#8B0000';
     
           statusText.innerHTML = toggleStatus ? 'ON' : 'OFF';
-          
-          
         }
 
-        startingStatus ? (function(){
-          statusText.style.color = '#006400';
-          statusText.innerHTML = 'ON';
-        }) : (function(){
-          statusText.style.color = '#8B0000';
-          statusText.innerHTML = 'OFF';
-        }) 
-        
+
         return toggleButton;
     }
     static dropdownSelector(title, options, function_) {
