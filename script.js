@@ -241,7 +241,6 @@ class Components  {
         return button;
     }
     static boolToggle(title, onToggle, startingStatus) {
-        var content = document.getElementById("mortalhubcontent");
         var toggleButton = document.createElement('button');
         toggleButton.style.cssText = toggleButtonCSS;
         
@@ -261,16 +260,17 @@ class Components  {
     
         toggleButton.appendChild(titleContainer);
         toggleButton.appendChild(statusText);
-
-        alert(`Startingstatus: ${startingStatus}`);
+    
         var toggleStatus = startingStatus;
-    
+        
         toggleButton.addEventListener('click', function() {
-    
+
           toggleStatus = !toggleStatus;
+
           updateButtonStyles();
-    
+          
           onToggle(toggleStatus);
+          
         });
     
         toggleButton.addEventListener('mouseover', function() {
@@ -284,12 +284,19 @@ class Components  {
         
     
         function updateButtonStyles() {
-          statusText.style.color = toggleStatus ? '#006400' : '#8B0000';
-    
-          statusText.innerHTML = toggleStatus ? 'ON' : 'OFF';
+          if (toggleStatus == true) {
+            statusText.style.color = '#006400';
+            statusText.innerHTML = 'ON';
+          } else {
+            statusText.style.color = '#8B0000';
+            statusText.innerHTML = 'OFF';
+          }
+          
+          
         }
 
-
+        updateButtonStyles();
+    
         return toggleButton;
     }
     static dropdownSelector(title, options, function_) {
@@ -430,10 +437,10 @@ function loadPage(title) {
             } else {
               localStorage.setItem('mortal-hub-cloak', false);
             }
-        }, localStorage.getItem('mortal-hub-cloak')),
+        }, localStorage.getItem('mortal-hub-cloak') == "true"),
 
         Components.button("Disable Securly Tab Closing", function() {
-            Utils.showAlert("Securly can't close this tab now. If you load a new page this won't work there.");
+            Utils.showAlert("Mortal Hub", "Securly can't close this tab now. If you load a new page this won't work there.");
             window.onbeforeunload = function() {
                 return 1;
             };
@@ -446,7 +453,7 @@ function loadPage(title) {
             document.title = 'My Drive - Google Drive';
             document.getElementsByTagName('head')[0].appendChild(link);
 
-            Utils.showAlert('Tab is now cloaked.')
+            Utils.showAlert("Mortal Hub",'Tab is now cloaked.')
         }),
 
         Components.textField("‎ ‎ "),
@@ -481,7 +488,7 @@ function loadPage(title) {
               localStorage.setItem('mortal-hub-editing', false);
               document.body.contentEditable = 'false'; document.designMode = 'off';
             }
-        }, localStorage.getItem('mortal-hub-editing')),
+        }, localStorage.getItem('mortal-hub-editing') == "true"),
 
       ]);
 
@@ -637,8 +644,9 @@ function main(savedPage = null) {
 							originalMethod.apply(console, args);
 
 							var text = `[${methodName.charAt(0).toUpperCase()}${methodName.slice(1)}] ${args.join(" ")}`;
-							
-							document.getElementById('mortalhubconsole').scrollTop = (document.getElementById('mortalhubconsole').scrollHeight);
+							if(localStorage.getItem("uiPage") == "Console") {
+                document.getElementById('mortalhubconsole').scrollTop = (document.getElementById('mortalhubconsole').scrollHeight);
+              }
 							consoleContent.push(text);
 					};
   });
@@ -801,7 +809,7 @@ window.addEventListener('beforeunload', function (e) {
 
     osDtc = true;
     throw '';
-  };
+  }; 
 
 	const response = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub`);
 	const repoData = await response.json();
