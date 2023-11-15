@@ -18,7 +18,7 @@ const topbarCSS          = 'height: 20px; background-color: black; position: abs
 const alertContainerCSS  = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; max-width: 600px; padding: 20px; background-color: #212121; color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.5s; font-family: 'Poppins', sans-serif;z-index:999999;";
 const messageTextCSS     = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
 
-const liabilityMessage   = "This is public software that has been developed to test the vulnerabilities of computer monitoring software within a personal environment. This script is not intended for use on any school device or network. The developer claims no responsibility for any consequences that may arise from doing so.<br><br>By using this software, you agree to abide by all applicable terms and rules."; 
+const liabilityMessage   = "This is public software that has been developed to test the vulnerabilities of computer monitoring software within a personal environment. This script is not intended for use on any school device while being monitored, controlled, or otherwise remotely accessed by an authority such as a teacher, administrator, counselor. The developer claims no responsibility for any consequences that may arise from doing so.<br><br>By using this software, you agree to abide by all applicable terms and rules."; 
 
 let fakewindow           = window.open("about:blank", "", "width=1,height=1, top=2000,left=2000");
 
@@ -31,6 +31,19 @@ var osDtc = false; /* Whether or not a forbidden OS was used to run the script (
 */
 
 class Utils {
+  static fixHandlers() {
+    var handlers = ['copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
+  
+    for (var handler of handlers) {
+      window.addEventListener(handler, function(e){e.stopPropagation()}, true);
+    }
+
+    window.addEventListener('error', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }, false);
+  
+  }
   static fadeIn(element, duration) {
     var startingOpacity = 0;
     var targetOpacity = 1;
@@ -760,22 +773,8 @@ window.addEventListener('beforeunload', function (e) {
     localStorage.setItem("mortalSessionActive", false);
     localStorage.setItem('mortal-hub-cloak', false);
   
-  
-    window.addEventListener('error', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }, false);
-  
-    var handlers = [
-      'copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
-  
-    function stopPropagation(e) {
-      e.stopPropagation();
-    }
-  
-    for (var handler of handlers) {
-      window.addEventListener(handler, stopPropagation, true);
-    }
+
+    Utils.fixHandlers();
 
     fakewindow.close();
 
@@ -792,20 +791,16 @@ window.addEventListener('beforeunload', function (e) {
     Start script 
 */
 (async function() {
-  if (navigator.appVersion.includes("Windows")) {
+  if (!navigator.appVersion.includes("CrOS")) {
     localStorage.removeItem('uiPage');
   
     localStorage.setItem("mortalSessionActive", false);
     localStorage.setItem('mortal-hub-cloak', false);
 
-    var handlers = ['copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
-  
+    Utils.fixHandlers();
 
-    for (var handler of handlers) {
-      window.addEventListener(handler, function(e){e.stopPropagation()}, true);
-    }
     fakewindow.close();
-    Utils.showAlert("Mortal Hub", "Only use this on chromebooks!");
+    Utils.showAlert("Mortal Hub - Incompatible OS", "This script will not run on this device.");
 
     osDtc = true;
     throw '';
