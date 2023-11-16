@@ -555,6 +555,45 @@ function loadPage(title) {
       
 
       break;
+    case "Proxies":
+      Utils.drawPageWithElements([
+        Components.textField("Proxies (against most schools policies)"),
+        Components.button("Interstellar (cloaked)", function() {
+          window.open("https://mathway.cloud", "_blank");
+        }),
+        Components.button("Interstellar (cloaked)", function() {
+          window.open("https://roundrockisd.online", "_blank");
+        }),
+        Components.button("Interstellar (cloaked)", function() {
+          window.open("https://outerspace.pics", "_blank");
+        }),
+
+        Components.button("Interstellar (regular)", function() {
+          window.open("https://nimbuss.cloud/", "_blank");
+        }),
+
+        Components.button("Interstellar (regular)", function() {
+          window.open("https://interstellar-v3-pv7vj7jfa-holycarrot6.vercel.app/", "_blank");
+        }),
+
+        Components.button("Interstellar (regular)", function() {
+          window.open("https://desmos.me/", "_blank");
+        }),
+        Components.button("Interstellar (regular)", function() {
+          window.open("https://bubbo.dev/", "_blank");
+        }),
+				
+        Components.button("Interstellar (regular)", function() {
+          window.open("https://v4.wiki/", "_blank");
+        }),
+ 
+        Components.button("Alien Hub (costs $5)", function() {
+          window.open("https://alienhub.xyz", "_blank");
+        }),
+
+      ]);
+
+      break;
   }
 
 
@@ -587,6 +626,7 @@ function main(savedPage = null) {
     'Scripts',
     'Console',
     'Sounds',
+    'Proxies'
   ];
 
   for (var i = 0; i < tabList.length; i++) {
