@@ -17,6 +17,7 @@ const contentCSS         = 'width:500px;height:300px;background-color:black;bord
 const topbarCSS          = 'height: 20px; background-color: black; position: absolute; top: -17px; left: 0; right: 0; cursor: move; border-top-left-radius: 10px; border-top-right-radius: 10px;border-bottom: 5px solid white;';
 const alertContainerCSS  = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; max-width: 600px; padding: 20px; background-color: #212121; color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.5s; font-family: 'Poppins', sans-serif;z-index:999999;";
 const messageTextCSS     = "font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; font-family: 'Montserrat', sans-serif;";
+const consoleWindowCSS   = 'width: calc(100% - 40px);' + 'height: calc(70%);' + 'padding: 10px;' + 'background-color: rgba(0, 0, 0, 0.7);' + 'border: 1px solid white;' + 'color: white;' + 'font-size: 14px;' + 'font-family: \'Inter\', sans-serif;' + 'font-weight: bold;' + 'cursor: pointer;' + 'transition: background-color 0.2s ease-in-out;' + 'text-align: left;' + 'border-radius: 10px;' + 'margin-top: 20px;' + 'margin-bottom: 0px;' + 'overflow-y: auto';
 
 const liabilityMessage   = "This is public software that has been developed to test the vulnerabilities of computer monitoring software within a personal environment. This script is not intended for use on any school device while being monitored, controlled, or otherwise remotely accessed by an authority such as a teacher, administrator, counselor. The developer claims no responsibility for any consequences that may arise from doing so.<br><br>By using this software, you agree to abide by all applicable terms and rules."; 
 
@@ -108,7 +109,7 @@ class Utils {
         parent.removeChild(parent.firstChild);
     }
   }
-  static drawPageWithElements(elements) {
+  static drawPage(elements) {
     const content = document.getElementById("mortalhubcontent");
 
     elements.forEach(element => {
@@ -158,23 +159,7 @@ class Components  {
         var text = document.createElement('div');
         text.id = "mortalhubconsole";
         text.textContent = "";
-        text.style.cssText =
-          'width: calc(100% - 40px);' + 
-          'height: calc(70%);' +
-          'padding: 10px;' + 
-          'background-color: rgba(0, 0, 0, 0.7);' +
-          'border: 1px solid white;' +
-          'color: white;' +
-          'font-size: 14px;' +
-          'font-family: \'Inter\', sans-serif;' +
-          'font-weight: bold;' +
-          'cursor: pointer;' +
-          'transition: background-color 0.2s ease-in-out;' +
-          'text-align: left;' + 
-          'border-radius: 10px;' + 
-          'margin-top: 20px;' + 
-          'margin-bottom: 0px;' +
-          'overflow-y: auto';
+        text.style.cssText = consoleWindowCSS;
     
         return text;
     }
@@ -395,7 +380,7 @@ class Components  {
           }, 0);
         }
 
-        return dropDown;
+        return dropdown;
     }
 }
 /*
@@ -419,29 +404,32 @@ function loadPage(title) {
   particlesContainer.style.pointerEvents = "none"; 
   content.appendChild(particlesContainer);
 
+  const { drawPage } = Utils;
+  const { textField, textBox, stringInput, boolToggle, button, consoleWindow, dropdownSelector, integerSlider, sidebarTab } = Components;
+
   switch (title) {
     case "Info":
-      Utils.drawPageWithElements([
-        Components.textField("‎ ‎ "),
-        Components.textField("(SECURLY SCRIPTS NOT FOR USE IN SCHOOL ENVIRONMENTS)"),
-        Components.textField("Public Project Made by: bznel#0"),
+      drawPage([
+        textField("‎ ‎ "),
+        textField("(SECURLY SCRIPTS NOT FOR USE IN SCHOOL ENVIRONMENTS)"),
+        textField("Public Project Made by: bznel#0"),
         
-        Components.textField("‎ ‎ "),
-        Components.textField("Scripts"),
+        textField("‎ ‎ "),
+        textField("Scripts"),
         
-        Components.textBox("- History Flooder (spams browser history with entries)<br>- Screen Hider (hides your screen from securly)<br>- Disable Tab Closing (bypasses securly's tab closing)<br>- Tab Disguise (makes your tab look like google drive)<br>- Barrel Roll (animates your page to spin in a circle)<br>- Show Text Alert (simple script to show an alert)<br>- Page Editing (allows you to edit any text on your page)"),
+        textBox("- History Flooder (spams browser history with entries)<br>- Screen Hider (hides your screen from securly)<br>- Disable Tab Closing (bypasses securly's tab closing)<br>- Tab Disguise (makes your tab look like google drive)<br>- Barrel Roll (animates your page to spin in a circle)<br>- Show Text Alert (simple script to show an alert)<br>- Page Editing (allows you to edit any text on your page)"),
         
-        Components.textField("‎ ‎ "),
-        Components.textField("Console"),
-        Components.textBox("- Console box displays logs, errors, and warnings<br>- Command input allows you to run any javascript commands"),
+        textField("‎ ‎ "),
+        textField("Console"),
+        textBox("- Console box displays logs, errors, and warnings<br>- Command input allows you to run any javascript commands"),
       ]);
       
       break;
     case "Scripts":
-      Utils.drawPageWithElements([
-        Components.textField("‎ ‎ "),
-        Components.textField('History Flooder'),
-        Components.stringInput('Entries (ex: 50)', function(num) {
+      drawPage([
+        textField("‎ ‎ "),
+        textField('History Flooder'),
+        stringInput('Entries (ex: 50)', function(num) {
             var done = false;
             for (var i = 1; i <= num; i++) {
                 window.history.pushState(0, 0, i == num ? window.location.href : i);
@@ -454,9 +442,9 @@ function loadPage(title) {
                 Utils.showAlert("History Flooding Successful! (" + num.toString() + " Entries)")
             }
         }),
-        Components.textField("‎ ‎ "),
-        Components.textField('Securly (against school terms!)'),
-        Components.boolToggle("Hide Screen", function(toggle) {
+        textField("‎ ‎ "),
+        textField('Securly (against school terms!)'),
+        boolToggle("Hide Screen", function(toggle) {
             if (toggle === true) {
               localStorage.setItem('mortal-hub-cloak', true);
             } else {
@@ -464,14 +452,14 @@ function loadPage(title) {
             }
         }, localStorage.getItem('mortal-hub-cloak') == "true"),
 
-        Components.button("Disable Securly Tab Closing", function() {
+        button("Disable Securly Tab Closing", function() {
             Utils.showAlert("Mortal Hub", "Securly can't close this tab now. If you load a new page this won't work there.");
             window.onbeforeunload = function() {
                 return 1;
             };
         }),
 
-        Components.button("Tab Disguise", function() {
+        button("Tab Disguise", function() {
             var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
             link.type = 'image/x-icon'; link.rel = 'shortcut icon';
             link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';
@@ -481,10 +469,10 @@ function loadPage(title) {
             Utils.showAlert("Mortal Hub",'Tab is now cloaked.')
         }),
 
-        Components.textField("‎ ‎ "),
-        Components.textField('Fun'),
+        textField("‎ ‎ "),
+        textField('Fun'),
 
-        Components.button("Spin Page (Barrel Roll)", function() {
+        button("Spin Page (Barrel Roll)", function() {
             if (!barrelRollAnimating) {
             var css = "\n@keyframes roll {\n  100%{\n    transform:rotate(360deg)\n  }\n}\nbody {\n  animation-name: roll;\n  animation-duration: 4s;\n  animation-iteration-count: 1;\n}\n";
             style = document.createElement("style");
@@ -499,13 +487,13 @@ function loadPage(title) {
         }),
 
 
-        Components.stringInput("Show a text alert (ex: hello)", function(text) {
+        stringInput("Show a text alert (ex: hello)", function(text) {
             alert(text);
         }),
 
-        Components.textField("‎ ‎ "),
-        Components.textField('Toggles'),
-        Components.boolToggle("Page Editing", function(toggle) {
+        textField("‎ ‎ "),
+        textField('Toggles'),
+        boolToggle("Page Editing", function(toggle) {
             if (toggle === true) {
               localStorage.setItem('mortal-hub-editing', true);
               document.body.contentEditable = 'true'; document.designMode = 'on';
@@ -520,9 +508,9 @@ function loadPage(title) {
       
       break;
     case "Sounds":
-      Utils.drawPageWithElements([
-        Components.textField("‎ ‎ "),
-        Components.button("Vine Boom", function() {
+      drawPage([
+        textField("‎ ‎ "),
+        button("Vine Boom", function() {
             var audio = new Audio("https://bznel.github.io/Mortal-Hub/Vine-boom-sound-effect.mp3");
             audio.play();
         }),
@@ -530,10 +518,10 @@ function loadPage(title) {
       
       break;
     case "Console":
-      Utils.drawPageWithElements([
-        Components.consoleWindow(),
+      drawPage([
+        consoleWindow(),
 		
-        Components.stringInput("Type command", function(text) {
+        stringInput("Type command", function(text) {
             try{
               eval(text);
               
@@ -555,43 +543,51 @@ function loadPage(title) {
       
 
       break;
-    case "Proxies":
-      Utils.drawPageWithElements([
-        Components.textField("Proxies (against most schools policies)"),
-        Components.button("Interstellar (cloaked)", function() {
-          window.open("https://mathway.cloud", "_blank");
-        }),
-        Components.button("Interstellar (cloaked)", function() {
-          window.open("https://roundrockisd.online", "_blank");
-        }),
-        Components.button("Interstellar (cloaked)", function() {
-          window.open("https://outerspace.pics", "_blank");
-        }),
 
-        Components.button("Interstellar (regular)", function() {
-          window.open("https://nimbuss.cloud/", "_blank");
-        }),
+    case "Links":
+      try {
+        drawPage([
+          textField("Bypasses"),
 
-        Components.button("Interstellar (regular)", function() {
-          window.open("https://interstellar-v3-pv7vj7jfa-holycarrot6.vercel.app/", "_blank");
-        }),
 
-        Components.button("Interstellar (regular)", function() {
-          window.open("https://desmos.me/", "_blank");
-        }),
-        Components.button("Interstellar (regular)", function() {
-          window.open("https://bubbo.dev/", "_blank");
-        }),
-				
-        Components.button("Interstellar (regular)", function() {
-          window.open("https://v4.wiki/", "_blank");
-        }),
- 
-        Components.button("Alien Hub (costs $5)", function() {
-          window.open("https://alienhub.xyz", "_blank");
-        }),
+          dropdownSelector(title, [
+              "mercurywork.shop",
+              "ltbeef.netlify.app",
+              "sh1mmer.me",
+              "ltmeat.bypassi.com",
+              "skiovox.com",
+              "dextensify.pages.dev",
+              "disablesecurly.com",
+              "insecurly.bypassi.com",
+              "securlypass.com"
+          ], function(selection) {
+              window.open(`https://${selection}/`, "_blank");
+          }),
 
-      ]);
+          textField("Games/Proxies/Tools"),
+
+          button("Manifest (lots of tools)", function() {
+            window.open("https://sites.google.com/view/schoolmessage/home/browse?authuser=0", "_blank");
+          }),
+          button("100's of Proxies/Movies/Bypasses/Games", function() {
+            window.open("https://docs.google.com/document/d/1nK6tJb-sxfrrQJM9bSWcAV-Fo7jHasd_dWpj4VEVg5E/preview", "_blank");
+          }),
+          button("Tools/Games/Proxies (less reliable)", function() {
+            window.open("https://sites.google.com/view/wolfunblock/unblocker-archive/ghosted-zoomer-upload", "_blank");
+          }),
+          
+          
+        ]);
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+
+        if (error.stack) {
+          const stackLines = error.stack.split('\n');
+          const lineWithError = stackLines[1].trim();
+          
+          alert(`Error originated from: ${lineWithError}`);
+        }
+      }
 
       break;
   }
@@ -626,7 +622,7 @@ function main(savedPage = null) {
     'Scripts',
     'Console',
     'Sounds',
-    'Proxies'
+    'Links'
   ];
 
   for (var i = 0; i < tabList.length; i++) {
