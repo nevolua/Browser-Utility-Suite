@@ -14,9 +14,7 @@ This is public software that has been developed to test the vulnerabilities of c
 
 To run the script as a bookmarklet, navicate to https://bznel.github.io/Mortal-Hub/ and follow the instructions
 
-If you want to copy its code to run in the url bar/dev console (manually), just right click the button on the webpage, then click copy link address.
-
-I will not provide further instructions to run the code manually, but you may find them easily on the internet (youtube, google, etc.) 
+I will not provide further instructions to run the code manually, but the script itself is always located in this repository, named script.js
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
