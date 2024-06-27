@@ -575,16 +575,6 @@ function loadPage(title) {
 
       
       break;
-    case "Sounds":
-      drawPage([
-        textField("‎ ‎ "),
-        button("Vine Boom", function() {
-            var audio = new Audio("https://bznel.github.io/Mortal-Hub/Vine-boom-sound-effect.mp3");
-            audio.play();
-        }),
-      ]);
-      
-      break;
     case "Console":
       drawPage([
         consoleWindow(),
@@ -690,7 +680,6 @@ function main(savedPage = null) {
     'About',
     'Scripts',
     'Console',
-    'Sounds',
     'Links'
   ];
 
