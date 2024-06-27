@@ -1,4 +1,4 @@
-# Browser-Utility-Suite
+# Overview
 
 A sophisticated JavaScript-based toolkit designed for web security professionals and developers. This versatile script, deployable as a bookmarklet or via the browser console, offers a comprehensive set of pen-testing tools, browser vulnerability assessment features, and productivity enhancements. The script generates an intuitive UI overlay within the active browser tab, providing streamlined access to its diverse functionalities. Ideal for security auditing, web application testing, and exploring browser capabilities in a controlled environment.
 
@@ -14,7 +14,7 @@ This is public software that has been developed for the testing of browser funct
 
 ## Using the script
 
-To run the script as a bookmarklet, navicate to https://nevolua.github.io/Mortal-Hub/ and follow the instructions
+To run the script as a bookmarklet, navigate to https://nevolua.github.io/Browser-Utility-Suite/ and follow the instructions
 
 
 ## Contributing and Code Privacy
