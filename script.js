@@ -92,15 +92,15 @@ function applyInput(inputs) {
 */
 class Utils {
   static setupLocalStorage() {
-    localStorage.setItem('mortal-hub-cloak', false);
-    localStorage.setItem('mortal-hub-editing', false);
+    localStorage.setItem('utility-suite-cloak', false);
+    localStorage.setItem('utility-suite-editing', false);
   }
 
   static cleanLocalStorage() {
     localStorage.removeItem('uiPage');
-    localStorage.setItem("mortalSessionActive", false);
-    localStorage.setItem('mortal-hub-cloak', false);
-    localStorage.setItem('mortal-hub-editing', false);
+    localStorage.setItem("utilitysuiteSessionActive", false);
+    localStorage.setItem('utility-suite-cloak', false);
+    localStorage.setItem('utility-suite-editing', false);
   }
 
   static fixHandlers() {
@@ -141,7 +141,7 @@ class Utils {
 
   static showAlert(title = "", text) {
     return new Promise((resolve, reject) => {
-      (title == "") ? (title = "Mortal Hub") : (title = title);
+      (title == "") ? (title = "Utility Suite") : (title = title);
 
       Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
@@ -149,7 +149,7 @@ class Utils {
 
           var notification = new Notification(title, {
             body: text,
-            tag: "mortal-hub-notification",
+            tag: "utility-suite-notification",
             timestamp: dts,
             vibrate: [1000, 1000, 1000],
             renotify: true,
@@ -178,7 +178,7 @@ class Utils {
     
   }
   static drawPage(elements) {
-    const content = document.getElementById("mortalhubcontent");
+    const content = document.getElementById("utilitysuitecontent");
 	  
     var currentScrollPosition = content.scrollTop;
 
@@ -230,7 +230,7 @@ class Components  {
     }
     static consoleWindow() {
         var text = document.createElement('div');
-        text.id = "mortalhubconsole";
+        text.id = "utilitysuiteconsole";
         text.textContent = "";
         text.style.cssText = consoleWindowCSS;
     
@@ -277,7 +277,7 @@ class Components  {
     static sidebarTab(title) {
         var button = document.createElement('button'); 
         button.textContent = title; 
-        button.id = "mortal-hub-button-"+title;
+        button.id = "utility-suite-button-"+title;
         button.style.borderTop = title === 'Links' ? 'none' : '1px solid #666';
         button.style.cssText = tabCSS;
         
@@ -287,7 +287,7 @@ class Components  {
         button.addEventListener('click', function() {
     
           if (title !== localStorage.getItem("uiPage")) {
-            var oldBtn = document.getElementById("mortal-hub-button-"+localStorage.getItem("uiPage"));
+            var oldBtn = document.getElementById("utility-suite-button-"+localStorage.getItem("uiPage"));
     
             if (oldBtn) {
               oldBtn.style.textDecoration = "none";
@@ -304,7 +304,7 @@ class Components  {
         return button;
     }
     static button(title, function_) {
-        var content = document.getElementById("mortalhubcontent");
+        var content = document.getElementById("utilitysuitecontent");
         var button = document.createElement('button');
         
         button.textContent = title;
@@ -383,7 +383,7 @@ class Components  {
         return toggleButton;
     }
     static dropdownSelector(title, options, function_) {
-        var content = document.getElementById("mortalhubcontent");
+        var content = document.getElementById("utilitysuitecontent");
         var dropdown = document.createElement('div');
         dropdown.className = 'dropdown';
         var dropdownButton = document.createElement('button');
@@ -462,7 +462,7 @@ class Components  {
 */
 
 function loadPage(title) {
-  var content = document.getElementById("mortalhubcontent");
+  var content = document.getElementById("utilitysuitecontent");
 
   localStorage.setItem("uiPage", title);
 
@@ -521,11 +521,11 @@ function loadPage(title) {
         textField('Securly (against school terms!)'),
         boolToggle("Hide Screen", function(toggle) {
             if (toggle === true) {
-              localStorage.setItem('mortal-hub-cloak', true);
+              localStorage.setItem('utility-suite-cloak', true);
             } else {
-              localStorage.setItem('mortal-hub-cloak', false);
+              localStorage.setItem('utility-suite-cloak', false);
             }
-        }, localStorage.getItem('mortal-hub-cloak') == "true"),
+        }, localStorage.getItem('utility-suite-cloak') == "true"),
 
         button("Tab Disguise", function() {
             var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -534,7 +534,7 @@ function loadPage(title) {
             document.title = 'My Drive - Google Drive';
             document.getElementsByTagName('head')[0].appendChild(link);
 
-            Utils.showAlert("Mortal Hub",'Tab is now cloaked.')
+            Utils.showAlert("Utility Suite",'Tab is now cloaked.')
         }),
 
         textField("‎ ‎ "),
@@ -563,13 +563,13 @@ function loadPage(title) {
         textField('Toggles'),
         boolToggle("Page Editing", function(toggle) {
             if (toggle === true) {
-              localStorage.setItem('mortal-hub-editing', true);
+              localStorage.setItem('utility-suite-editing', true);
               document.body.contentEditable = 'true'; document.designMode = 'on';
             } else {
-              localStorage.setItem('mortal-hub-editing', false);
+              localStorage.setItem('utility-suite-editing', false);
               document.body.contentEditable = 'false'; document.designMode = 'off';
             }
-        }, localStorage.getItem('mortal-hub-editing') == "true"),
+        }, localStorage.getItem('utility-suite-editing') == "true"),
 
       ]);
 
@@ -659,17 +659,17 @@ function loadPage(title) {
     Initializes Script + Sets Up Loops and Listeners + Creates UI
 */
 function main(savedPage = null) {
-  localStorage.setItem('mortal-hub-cloak', false); 
+  localStorage.setItem('utility-suite-cloak', false); 
   
   document.addEventListener('keydown', function(event) {
     if (event.shiftKey && event.code === 'ShiftRight') {
-      document.getElementById('mortalhubui').style.display = document.getElementById('mortalhubui').style.display === 'none' ? 'block' : 'none';
+      document.getElementById('utilitysuiteui').style.display = document.getElementById('utilitysuiteui').style.display === 'none' ? 'block' : 'none';
     }
   });
 
   var ui = document.createElement('div');
   ui.setAttribute('contenteditable', false);
-  ui.id = "mortalhubui";
+  ui.id = "utilitysuiteui";
   ui.style.cssText = uiCSS;
 
 
@@ -695,7 +695,7 @@ function main(savedPage = null) {
 
 
   var content = document.createElement('div');
-  content.id = "mortalhubcontent";
+  content.id = "utilitysuitecontent";
   content.style.cssText = contentCSS;
   content.style.borderTopRightRadius = '0';
 
@@ -758,7 +758,7 @@ function main(savedPage = null) {
 
 							var text = `[${methodName.charAt(0).toUpperCase()}${methodName.slice(1)}] ${args.join(" ")}`;
 							if(localStorage.getItem("uiPage") == "Console") {
-                document.getElementById('mortalhubconsole').scrollTop = (document.getElementById('mortalhubconsole').scrollHeight);
+                document.getElementById('utilitysuiteconsole').scrollTop = (document.getElementById('utilitysuiteconsole').scrollHeight);
               }
 							consoleContent.push(text);
 					};
@@ -767,15 +767,15 @@ function main(savedPage = null) {
   function mainLoop(){
       if (localStorage.getItem('uiPage') === "Console") {
         var consoleContentText = consoleContent.join("<br>");
-        document.getElementById('mortalhubconsole').innerHTML = consoleContentText;
+        document.getElementById('utilitysuiteconsole').innerHTML = consoleContentText;
       }
 
-      if (document.hasFocus() && localStorage.getItem('mortal-hub-cloak') === "true") {
+      if (document.hasFocus() && localStorage.getItem('utility-suite-cloak') === "true") {
         fakewindow.focus();
       }
       
       if (localStorage.getItem('uiPage') == "Device Info") {
-        var content = document.getElementById("mortalhubcontent");
+        var content = document.getElementById("utilitysuitecontent");
 
         Utils.removeAllChildNodes(content);
 
@@ -850,7 +850,7 @@ function main(savedPage = null) {
         
         var failed = false;
         
-        var content = document.getElementById("mortalhubcontent");
+        var content = document.getElementById("utilitysuitecontent");
 
         Utils.removeAllChildNodes(content);
 
@@ -943,7 +943,7 @@ function startPrompt() {
   document.body.appendChild(script);
 
   script.onload = function() {
-    if (localStorage.getItem("mortalSessionActive") !== 'true') {
+    if (localStorage.getItem("utilitysuiteSessionActive") !== 'true') {
 
       var blackGradient = document.createElement("div"); 
       blackGradient.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; z-index: 999;"; 
@@ -997,7 +997,7 @@ function startPrompt() {
         setTimeout(function() {
           document.body.removeChild(overlay);
           document.body.style.cssText = "";
-          localStorage.setItem('mortalSessionActive', true);
+          localStorage.setItem('utilitysuiteSessionActive', true);
           overlay.remove();
           blackGradient.remove();
           particlesContainer.remove();
@@ -1024,9 +1024,9 @@ window.addEventListener('beforeunload', function (e) {
 
     fakewindow.close();
 
-    try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
+    try { document.getElementById("utilitysuiteui").remove(); } catch (e) { /* */}
 
-    Utils.showAlert("Mortal Hub", "Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
+    Utils.showAlert("Utility Suite", "Page unloaded, successfully uninitialized elements.\nTo continue using it, re-run the script.");
 
     throw '';
 });
@@ -1036,7 +1036,7 @@ window.addEventListener('beforeunload', function (e) {
     Start script 
 */
 (async function() {
-	const response = await fetch(`https://api.github.com/repos/nevolua/Mortal-Hub`);
+	const response = await fetch(`https://api.github.com/repos/nevolua/Browser-Utility-Suite`);
 	const repoData = await response.json();
 	const lastUpdateUTC = new Date(repoData.pushed_at);
 	
@@ -1077,11 +1077,11 @@ window.addEventListener('beforeunload', function (e) {
   const PlatformVersion = ua.platformVersion;
 
   try {
-    try { document.getElementById("mortalhubui").remove(); } catch (e) { /* */}
+    try { document.getElementById("utilitysuiteui").remove(); } catch (e) { /* */}
 
     Utils.setupLocalStorage();
 
-    Utils.showAlert(`Mortal Hub Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
+    Utils.showAlert(`Utility Suite Loaded!`,`Last update: ${lastUpdateTime} (${timeDifferenceString})\nRight shift to toggle UI\n\n${Browser} | ${PlatformVersion}`);
     
     setTimeout(function() {
       startPrompt();
