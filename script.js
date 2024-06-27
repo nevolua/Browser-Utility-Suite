@@ -105,7 +105,7 @@ class Utils {
   }
 
   static fixHandlers() {
-    var handlers = ['copy', 'cut', 'paste', 'beforeunload', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit', 'unload'];
+    var handlers = ['copy', 'cut', 'paste', 'blur', 'change', 'click', 'contextmenu', 'dblclick', 'focus', 'keydown', 'keypress', 'keyup', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'resize', 'scroll', 'DOMNodeInserted', 'DOMNodeRemoved', 'DOMNodeRemovedFromDocument', 'DOMNodeInsertedIntoDocument', 'DOMAttrModified', 'DOMCharacterDataModified', 'DOMElementNameChanged', 'DOMAttributeNameChanged', 'DOMActivate', 'DOMFocusIn', 'DOMFocusOut', 'online', 'offline', 'textInput','abort', 'close', 'dragdrop', 'load', 'paint', 'reset', 'select', 'submit'];
   
     for (var handler of handlers) {
       window.addEventListener(handler, function(e){e.stopPropagation()}, true);
@@ -527,13 +527,6 @@ function loadPage(title) {
               localStorage.setItem('mortal-hub-cloak', false);
             }
         }, localStorage.getItem('mortal-hub-cloak') == "true"),
-
-        button("Disable Securly Tab Closing", function() {
-            Utils.showAlert("Mortal Hub", "Securly can't close this tab now. If you load a new page this won't work there.");
-            window.onbeforeunload = function() {
-                return 1;
-            };
-        }),
 
         button("Tab Disguise", function() {
             var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
