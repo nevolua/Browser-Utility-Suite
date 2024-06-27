@@ -19,6 +19,4 @@ To run the script as a bookmarklet, navigate to https://nevolua.github.io/Browse
 
 ## Contributing and Code Privacy
 
-This project is for public use. However, its code is private, and the source is not shared publicly. 
-
-This repository contains **script.js**, which contains the heavily obfuscated and self-protected version of the script. (it will not run without my loader)
+This project is open source and free to be used by anyone
