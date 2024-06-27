@@ -25,7 +25,6 @@ let fakewindow           = window.open("about:blank", "", "width=1,height=1, top
 
 var barrelRollAnimating  = false;
 
-var osDtc = false; /* Whether or not a forbidden OS was used to run the script (to ignore a reload and not notify user of script being unloaded) */ 
 var mainLoopIteration = 0;
 
 /* 
@@ -1029,8 +1028,6 @@ function startPrompt() {
     Handle Page Unloads
 */
 window.addEventListener('beforeunload', function (e) {
-    if (osDtc){return;}
-
     e.preventDefault();
 
     Utils.fixHandlers();
@@ -1050,20 +1047,7 @@ window.addEventListener('beforeunload', function (e) {
     Start script 
 */
 (async function() {
-  if (!navigator.appVersion.includes("CrOS")) {
-
-    Utils.fixHandlers();
-    Utils.cleanLocalStorage();
-
-    fakewindow.close();
-
-    Utils.showAlert("Mortal Hub - Incompatible OS", "This script will not run on this device.");
-
-    osDtc = true;
-    throw '';
-  }; 
-
-	const response = await fetch(`https://api.github.com/repos/bznel/Mortal-Hub`);
+	const response = await fetch(`https://api.github.com/repos/nevolua/Mortal-Hub`);
 	const repoData = await response.json();
 	const lastUpdateUTC = new Date(repoData.pushed_at);
 	
