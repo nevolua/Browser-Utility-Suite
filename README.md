@@ -15,7 +15,7 @@ This is public software that has been developed for the testing of browser funct
 
 ## Using the script
 
-To run the script as a bookmarklet, navicate to https://bznel.github.io/Mortal-Hub/ and follow the instructions
+To run the script as a bookmarklet, navicate to https://nevolua.github.io/Mortal-Hub/ and follow the instructions
 
 
 ## Contributing and Code Privacy
