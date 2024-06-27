@@ -1,6 +1,6 @@
 # Overview
 
-A sophisticated JavaScript-based toolkit. This versatile script, deployable as a bookmarklet or via the browser console, offers a comprehensive set of pen-testing tools, browser vulnerability assessment features, and productivity enhancements. The script generates an intuitive UI overlay within the active browser tab, providing streamlined access to its diverse functionalities. Ideal for security auditing, web application testing, and exploring browser capabilities in a controlled environment. (this script was originally created to test vulnerabilities of securly and other school device monitoring software)
+A JavaScript-based toolkit for web security testing and browser exploration. Deployable as a bookmarklet or via console, it offers pen-testing tools, vulnerability assessments, and productivity features. The script creates a user-friendly UI overlay for easy access to its functions. Originally designed to test vulnerabilities in school device monitoring software like Securly. Suitable for security audits, web application testing, and exploring browser capabilities in controlled environments.
 
 ## OFFICIAL DISCLAIMER
 
