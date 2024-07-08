@@ -684,7 +684,7 @@ function main(savedPage = null) {
   ];
 
 
-  if (window.location.origin.replace("https://", "").includes("wordlegame.org")) {
+  if (window.location.origin.replace("https://", "").includes("wordlegame.org") || window.location.origin.replace("https://", "").includes("wordly.org")) {
         tabList.push('Wordle');
   }
 
