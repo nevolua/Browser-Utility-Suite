@@ -15,7 +15,7 @@ This is public software that has been developed for the testing of browser funct
 
 To run the script as a bookmarklet, navigate to https://nevolua.github.io/Browser-Utility-Suite/ and follow the instructions
 
-### Scripts
+## Scripts
 The toolkit includes the following scripts:
 - **History Flooder:** Spams the browser history with entries.
 - **Screen Hider:** Hides your screen from monitoring software like Securly.
@@ -25,7 +25,7 @@ The toolkit includes the following scripts:
 - **Show Text Alert:** Displays a simple alert with custom text.
 - **Page Editing:** Allows you to edit any text on your page.
 
-### Console
+## Console
 The toolkit features a console with the following capabilities:
 - **Log Display:** Shows logs, errors, and warnings in the console box.
 - **Command Input:** Allows you to run any JavaScript commands directly from the console.
