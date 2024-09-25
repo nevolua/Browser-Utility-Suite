@@ -1,8 +1,9 @@
+## If ran on wordly.com, this script includes an automated version of my [wordle assistant script](https://github.com/nevolua/Wordle-Assistant) which can be accessed and used by navigating to the "Wordle" tab.
+
 # Overview
 
 A JavaScript-based toolkit for web security testing and browser exploration. Deployable as a bookmarklet or via console, it offers pen-testing tools, vulnerability assessments, and productivity features. The script creates a user-friendly UI overlay for easy access to its functions. Originally designed to test vulnerabilities of school device monitoring software like Securly.
 
-## This script includes an automated version of my [wordle assistant script](https://github.com/nevolua/Wordle-Assistant) if ran on wordly.com.
 
 ## OFFICIAL DISCLAIMER
 
