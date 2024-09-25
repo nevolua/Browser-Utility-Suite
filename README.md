@@ -1,4 +1,4 @@
-## If ran on wordly.com, this script includes an automated version of my [wordle assistant script](https://github.com/nevolua/Wordle-Assistant) which can be accessed and used by navigating to the "Wordle" tab.
+## If ran on wordly.com, this script includes an automated version of my [wordle assistant script](https://github.com/nevolua/Wordle-Assistant) which can be accessed by navigating to the "Wordle" tab.
 
 # Overview
 
