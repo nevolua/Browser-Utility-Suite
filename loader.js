@@ -1,5 +1,5 @@
 javascript:(function() {
-    var scriptUrl = 'https://xytual.github.io/Browser-Utility-Suite/script.js';
+    var scriptUrl = 'https://zoolah.github.io/Browser-Utility-Suite/script.js';
     if (scriptUrl.startsWith('javascript:')) {
       scriptUrl = scriptUrl.substring('javascript:'.length);
     }
