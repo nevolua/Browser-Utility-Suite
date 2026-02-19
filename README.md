@@ -17,7 +17,7 @@ This is public software that has been developed for the testing of browser funct
 
 ## Using the script
 
-To run the script as a bookmarklet, navigate to https://xytual.github.io/Browser-Utility-Suite/ and follow the instructions
+To run the script as a bookmarklet, navigate to https://zoolah.github.io/Browser-Utility-Suite/ and follow the instructions
 
 ## Scripts
 The toolkit includes the following scripts:
